@@ -7,16 +7,33 @@ namespace VitaUnit
 	public static class TestRunner
 	{
 		public static List<string> Run() {
-			List<string> testResults = new List<string>();
+			var testResults = new List<string>();
 			foreach(Type testClass in GetTestClasses()) {
-				object testClassInstance = Activator.CreateInstance(testClass);
-				foreach(MethodInfo testMethod in GetTestMethods(testClass)) {
-					String testResult = RunTestMethod(testClassInstance, testMethod);
-					testResults.Add(testResult);
-				}
+				object testClassInstance = TryCreateInstanceOf(testClass);
+				if(testClassInstance != null)
+					testResults = RunAllTestMethodsInTestClass(testClassInstance);
 			}
 			
 			return testResults;
+		}
+
+		private static List<string> RunAllTestMethodsInTestClass(object testClassInstance) {
+			var testResults = new List<string>();
+			foreach(MethodInfo testMethod in GetTestMethods(testClassInstance.GetType())) {
+				String testResult = RunTestMethod(testClassInstance, testMethod);
+				testResults.Add(testResult);
+			}
+			return testResults;
+		}
+
+		private static object TryCreateInstanceOf(Type type) {
+			object testClassInstance = null;
+			try {
+				testClassInstance = Activator.CreateInstance(type);
+			} catch (Exception) {
+			}
+			
+			return testClassInstance;
 		}
 
 		private static string RunTestMethod(object testClassInstance, MethodInfo testMethod) {
@@ -31,7 +48,7 @@ namespace VitaUnit
 		}
 		
 		private static IEnumerable<Type> GetTestClasses() {
-			List<Type> testClasses = new List<Type>();
+			var testClasses = new List<Type>();
 			
 			foreach(Type type in Assembly.GetEntryAssembly().GetTypes()) {
 				foreach(Attribute attribute in type.GetCustomAttributes(true)) {
@@ -44,7 +61,7 @@ namespace VitaUnit
 		}
 		
 		private static IEnumerable<MethodInfo> GetTestMethods(Type testClass) {
-			List<MethodInfo> testMethods = new List<MethodInfo>();
+			var testMethods = new List<MethodInfo>();
 			
 			foreach(MethodInfo method in testClass.GetMethods(BindingFlags.NonPublic|BindingFlags.DeclaredOnly|BindingFlags.Instance|BindingFlags.Public|BindingFlags.InvokeMethod)) {
 				foreach(Attribute innerAttribute in method.GetCustomAttributes(true)) {
