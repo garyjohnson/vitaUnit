@@ -7,15 +7,15 @@ using Sce.PlayStation.HighLevel.UI;
 
 namespace VitaUnit
 {
-    public partial class TestResult : ListPanelItem
+    public partial class TestResultItem : ListPanelItem
     {
-        public TestResult()
+        public TestResultItem()
         {
             InitializeWidget();
         }
         
-		public Label ResultLabel {
-			get { return testResultLabel; }
+        public void SetText(string text) {
+        	testResultLabel.Text = text;
 		}
     }
 }

@@ -30,12 +30,12 @@ namespace VitaUnit
 		}
 		
 		private ListPanelItem OnListItemCreate() {
-			return new TestResult();
+			return new TestResultItem();
 		}
 		
 		private void OnListItemUpdate(ListPanelItem listItem) {
-			TestResult testResult = (TestResult)listItem;
-			testResult.ResultLabel.Text = _testResults[testResult.Index];
+			TestResultItem testResult = (TestResultItem)listItem;
+			testResult.SetText(_testResults[testResult.Index]);
 		}
 	}
 }

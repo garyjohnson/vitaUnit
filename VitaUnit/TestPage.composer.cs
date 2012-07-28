@@ -25,7 +25,7 @@ namespace VitaUnit
 
             // testResultPanel
             testResultPanel.ScrollBarVisibility = ScrollBarVisibility.ScrollableVisible;
-            testResultPanel.SetListItemCreator(TestResult.Creator);
+            testResultPanel.SetListItemCreator(TestResultItem.Creator);
 
             // TestPage
             this.RootWidget.AddChildLast(testResultPanel);

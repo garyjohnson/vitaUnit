@@ -50,8 +50,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
   <ItemGroup>
     <Compile Include="UIStringTable.cs" />
-    <Compile Include="TestResult.composer.cs" />
-    <Compile Include="TestResult.cs" />
     <Compile Include="TestClassAttribute.cs" />
     <Compile Include="TestMethodAttribute.cs" />
     <Compile Include="Assert.cs" />
@@ -59,5 +57,7 @@
     <Compile Include="TestPage.composer.cs" />
     <Compile Include="TestPage.cs" />
     <Compile Include="VitaUnitRunner.cs" />
+    <Compile Include="TestResultItem.composer.cs" />
+    <Compile Include="TestResultItem.cs" />
   </ItemGroup>
 </Project>

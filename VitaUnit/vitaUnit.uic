@@ -119,7 +119,7 @@
               <Property i:type="ListPanelItemProperty">
                 <Effect>None</Effect>
                 <OwnerNode z:Ref="i4" />
-                <VariableName>TestResult</VariableName>
+                <VariableName>TestResultItem</VariableName>
                 <BackgroundAlpha>0</BackgroundAlpha>
                 <BackgroundColor xmlns:d9p1="http://schemas.datacontract.org/2004/07/System.Windows.Media">
                   <d9p1:A>255</d9p1:A>

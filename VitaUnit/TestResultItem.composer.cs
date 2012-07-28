@@ -9,7 +9,7 @@ using Sce.PlayStation.HighLevel.UI;
 
 namespace VitaUnit
 {
-    partial class TestResult
+    partial class TestResultItem
     {
         Label testResultLabel;
 
@@ -28,7 +28,7 @@ namespace VitaUnit
             testResultLabel.Font = new UIFont(FontAlias.System, 25, FontStyle.Regular);
             testResultLabel.LineBreak = LineBreak.Character;
 
-            // TestResult
+            // TestResultItem
             this.BackgroundColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 0f / 255f);
             this.AddChildLast(testResultLabel);
 
@@ -98,7 +98,7 @@ namespace VitaUnit
 
         public static ListPanelItem Creator()
         {
-            return new TestResult();
+            return new TestResultItem();
         }
 
     }
