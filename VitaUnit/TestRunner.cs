@@ -6,8 +6,8 @@ namespace VitaUnit
 {
 	public static class TestRunner
 	{
-		public static List<string> Run() {
-			var testResults = new List<string>();
+		public static TestResults Run() {
+			var testResults = new TestResults();
 			foreach(Type testClass in GetTestClasses()) {
 				object testClassInstance = TryCreateInstanceOf(testClass);
 				if(testClassInstance != null)
@@ -17,12 +17,14 @@ namespace VitaUnit
 			return testResults;
 		}
 
-		private static List<string> RunAllTestMethodsInTestClass(object testClassInstance) {
-			var testResults = new List<string>();
+		private static TestResults RunAllTestMethodsInTestClass(object testClassInstance) {
+			var testResults = new TestResults();
 			foreach(MethodInfo testMethod in GetTestMethods(testClassInstance.GetType())) {
-				String testResult = RunTestMethod(testClassInstance, testMethod);
-				testResults.Add(testResult);
+				string className = testClassInstance.GetType().Name;
+				TestResult testResult = RunTestMethod(testClassInstance, testMethod);
+				testResults[className].Add(testResult);
 			}
+			
 			return testResults;
 		}
 
@@ -36,13 +38,16 @@ namespace VitaUnit
 			return testClassInstance;
 		}
 
-		private static string RunTestMethod(object testClassInstance, MethodInfo testMethod) {
-			String testResult;
+		private static TestResult RunTestMethod(object testClassInstance, MethodInfo testMethod) {
+			TestResult testResult = null;
+			string className = testClassInstance.GetType().Name;
+			string methodName = testMethod.Name;
+			
 			try {
 				testMethod.Invoke(testClassInstance, null);
-				testResult = testClassInstance.GetType().Name + "." + testMethod.Name + " ran successfully";
-			} catch (Exception) {
-				testResult = testClassInstance.GetType().Name + "." + testMethod.Name + " failed";
+				testResult = new TestResult(methodName, true, "Success");
+			} catch (Exception ex) {
+				testResult = new TestResult(methodName, false, "Failed: " + ex.Message);
 			}
 			return testResult;
 		}

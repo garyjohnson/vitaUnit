@@ -9,7 +9,7 @@ namespace VitaUnit
 {
 	public partial class TestPage : Scene
 	{
-		private List<string> _testResults;
+		private TestResults _testResults;
 		private readonly ListSectionCollection _sections = new ListSectionCollection();
         
 		public TestPage() {
@@ -22,11 +22,14 @@ namespace VitaUnit
 			testResultPanel.SetListItemUpdater(OnListItemUpdate);
 			testResultPanel.Sections = _sections;
 		}
-		
+
 		protected override void OnShown() {
 			base.OnShown();
 			_testResults = TestRunner.Run();
-			testResultPanel.Sections.Add(new ListSection("Test", _testResults.Count));
+			
+			foreach(string key in _testResults.Keys) {
+				testResultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
+			}	
 		}
 		
 		private ListPanelItem OnListItemCreate() {
@@ -35,7 +38,9 @@ namespace VitaUnit
 		
 		private void OnListItemUpdate(ListPanelItem listItem) {
 			TestResultItem testResult = (TestResultItem)listItem;
-			testResult.SetText(_testResults[testResult.Index]);
+			string className = _sections[listItem.SectionIndex].Title;
+			TestResult result = _testResults[className][testResult.Index];
+			testResult.SetText(result.MethodName + " " + result.Message);
 		}
 	}
 }

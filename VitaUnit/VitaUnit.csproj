@@ -60,5 +60,7 @@
     <Compile Include="TestResultItem.composer.cs" />
     <Compile Include="TestResultItem.cs" />
     <Compile Include="VitaUnitException.cs" />
+    <Compile Include="TestResult.cs" />
+    <Compile Include="TestResults.cs" />
   </ItemGroup>
 </Project>
