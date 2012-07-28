@@ -6,12 +6,12 @@ namespace VitaUnit.Test
 	public class AssertTest
 	{
 		[TestMethod]
-		public void ShouldThrowExceptionWhenAssertIsTrueFails() {
+		public void ShouldThrowVitaUnitExceptionWhenAssertIsTrueFails() {
 			bool threwException = false;
 			
 			try {
 				Assert.IsTrue(false);
-			} catch (Exception) {
+			} catch (VitaUnitException) {
 				threwException = true;
 			}
 			
@@ -24,12 +24,12 @@ namespace VitaUnit.Test
 		}
 		
 		[TestMethod]
-		public void ShouldThrowExceptionWhenAssertIsFalseFails() {
+		public void ShouldThrowVitaUnitExceptionWhenAssertIsFalseFails() {
 			bool threwException = false;
 			
 			try {
 				Assert.IsFalse(true);
-			} catch (Exception) {
+			} catch (VitaUnitException) {
 				threwException = true;
 			}
 			

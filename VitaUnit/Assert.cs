@@ -15,7 +15,7 @@ namespace VitaUnit
 		}
 		
 		private static void OnTestFailure() {
-			throw new Exception();
+			throw new VitaUnitException();
 		}
 	}
 }
