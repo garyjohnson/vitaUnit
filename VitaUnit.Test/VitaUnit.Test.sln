@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitaUnit.Test", "VitaUnit.Test\VitaUnit.Test.csproj", "{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitaUnit", "..\VitaUnit\VitaUnit.csproj", "{AB629BCA-FA25-4231-9D96-610FEBB51B85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Test|Any CPU = Test|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{AB629BCA-FA25-4231-9D96-610FEBB51B85}.Test|Any CPU.Build.0 = Test|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{EAE4392E-FB1E-4D5D-96A0-2ADF5C631D77}.Test|Any CPU.Build.0 = Test|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = VitaUnit.Test\VitaUnit.Test.csproj
+	EndGlobalSection
+EndGlobal

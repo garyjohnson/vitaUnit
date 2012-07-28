@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/UIComposer">
+  <Parent i:nil="true" />
+  <Nodes>
+    <UICNode z:Id="i2" i:type="ObjectTreeNode">
+      <Parent z:Ref="i1" />
+      <Nodes>
+        <UICNode z:Id="i3" i:type="ObjectTreeNode">
+          <Parent z:Ref="i2" />
+          <Nodes />
+          <LayoutProperty>
+            <LayoutProperty>
+              <X>0</X>
+              <Y>0</Y>
+              <Width>960</Width>
+              <Height>544</Height>
+              <Visible>true</Visible>
+              <Anchors>None</Anchors>
+            </LayoutProperty>
+            <LayoutProperty>
+              <X>-286.97154618665104</X>
+              <Y>73.786053021587463</Y>
+              <Width>854</Width>
+              <Height>400</Height>
+              <Visible>true</Visible>
+              <Anchors>None</Anchors>
+            </LayoutProperty>
+          </LayoutProperty>
+          <Property i:type="ListPanelProperty">
+            <Effect>None</Effect>
+            <OwnerNode z:Ref="i3" />
+            <VariableName>testResultPanel</VariableName>
+            <ListPanelItemID>0</ListPanelItemID>
+            <ListPanelItemNode z:Id="i4">
+              <Parent z:Ref="i1" />
+              <Nodes>
+                <UICNode z:Id="i5" i:type="ObjectTreeNode">
+                  <Parent z:Ref="i4" />
+                  <Nodes />
+                  <LayoutProperty>
+                    <LayoutProperty>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Width>400</Width>
+                      <Height>50</Height>
+                      <Visible>true</Visible>
+                      <Anchors>Top Left</Anchors>
+                    </LayoutProperty>
+                    <LayoutProperty>
+                      <X>79.156096325427541</X>
+                      <Y>36.526679145971343</Y>
+                      <Width>214</Width>
+                      <Height>36</Height>
+                      <Visible>true</Visible>
+                      <Anchors>None</Anchors>
+                    </LayoutProperty>
+                  </LayoutProperty>
+                  <Property i:type="LabelProperty">
+                    <Effect>None</Effect>
+                    <OwnerNode z:Ref="i5" />
+                    <VariableName>testResultLabel</VariableName>
+                    <H_Alignment>Left</H_Alignment>
+                    <HasTextShadow>false</HasTextShadow>
+                    <LineBreaks>Character</LineBreaks>
+                    <Text>The test is done and stuff!</Text>
+                    <TextAlpha>100</TextAlpha>
+                    <TextColor xmlns:d11p1="http://schemas.datacontract.org/2004/07/System.Windows.Media">
+                      <d11p1:A>255</d11p1:A>
+                      <d11p1:B>0</d11p1:B>
+                      <d11p1:G>0</d11p1:G>
+                      <d11p1:R>0</d11p1:R>
+                      <d11p1:ScA>1</d11p1:ScA>
+                      <d11p1:ScB>0</d11p1:ScB>
+                      <d11p1:ScG>0</d11p1:ScG>
+                      <d11p1:ScR>0</d11p1:ScR>
+                    </TextColor>
+                    <TextFont xmlns:d11p1="http://schemas.datacontract.org/2004/07/UIComposer.ModelData">
+                      <d11p1:FontFamily>System</d11p1:FontFamily>
+                      <d11p1:FontSize>25</d11p1:FontSize>
+                      <d11p1:FontStyle>Regular</d11p1:FontStyle>
+                    </TextFont>
+                    <TextShadow xmlns:d11p1="http://schemas.datacontract.org/2004/07/UIComposer.ModelData" i:nil="true" />
+                    <TextTrimming>EllipsisCharacter</TextTrimming>
+                    <V_Alignment>Middle</V_Alignment>
+                  </Property>
+                  <IsRoot>false</IsRoot>
+                  <PivotPos>LeftTop</PivotPos>
+                  <WidgetType>Label</WidgetType>
+                  <ID>791306934</ID>
+                  <ZIndex>0</ZIndex>
+                  <LayoutAssistInfo>
+                    <SnapGuidesList>
+                      <ArrayOfSnapGuide />
+                      <ArrayOfSnapGuide />
+                    </SnapGuidesList>
+                  </LayoutAssistInfo>
+                  <IsHideInLayout>false</IsHideInLayout>
+                  <IsLockInLayout>false</IsLockInLayout>
+                </UICNode>
+              </Nodes>
+              <LayoutProperty>
+                <LayoutProperty>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Width>400</Width>
+                  <Height>50</Height>
+                  <Visible>true</Visible>
+                  <Anchors>None</Anchors>
+                </LayoutProperty>
+                <LayoutProperty>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Width>50</Width>
+                  <Height>960</Height>
+                  <Visible>true</Visible>
+                  <Anchors>None</Anchors>
+                </LayoutProperty>
+              </LayoutProperty>
+              <Property i:type="ListPanelItemProperty">
+                <Effect>None</Effect>
+                <OwnerNode z:Ref="i4" />
+                <VariableName>TestResult</VariableName>
+                <BackgroundAlpha>0</BackgroundAlpha>
+                <BackgroundColor xmlns:d9p1="http://schemas.datacontract.org/2004/07/System.Windows.Media">
+                  <d9p1:A>255</d9p1:A>
+                  <d9p1:B>0</d9p1:B>
+                  <d9p1:G>0</d9p1:G>
+                  <d9p1:R>0</d9p1:R>
+                  <d9p1:ScA>1</d9p1:ScA>
+                  <d9p1:ScB>0</d9p1:ScB>
+                  <d9p1:ScG>0</d9p1:ScG>
+                  <d9p1:ScR>0</d9p1:ScR>
+                </BackgroundColor>
+              </Property>
+              <IsRoot>true</IsRoot>
+              <PivotPos>LeftTop</PivotPos>
+              <WidgetType>ListPanelItem</WidgetType>
+              <ID>1883860608</ID>
+              <ZIndex>0</ZIndex>
+              <LayoutAssistInfo>
+                <SnapGuidesList>
+                  <ArrayOfSnapGuide />
+                  <ArrayOfSnapGuide />
+                </SnapGuidesList>
+                <OwnerNode z:Ref="i4" />
+              </LayoutAssistInfo>
+              <IsHideInLayout>false</IsHideInLayout>
+              <IsLockInLayout>false</IsLockInLayout>
+            </ListPanelItemNode>
+            <ScrollBarVisibility>ScrollableVisible</ScrollBarVisibility>
+            <ShowEmptySection>true</ShowEmptySection>
+            <ShowItemBorder>true</ShowItemBorder>
+            <ShowSection>true</ShowSection>
+          </Property>
+          <IsRoot>false</IsRoot>
+          <PivotPos>LeftTop</PivotPos>
+          <WidgetType>ListPanel</WidgetType>
+          <ID>2036804818</ID>
+          <ZIndex>0</ZIndex>
+          <LayoutAssistInfo>
+            <SnapGuidesList>
+              <ArrayOfSnapGuide />
+              <ArrayOfSnapGuide />
+            </SnapGuidesList>
+          </LayoutAssistInfo>
+          <IsHideInLayout>false</IsHideInLayout>
+          <IsLockInLayout>false</IsLockInLayout>
+        </UICNode>
+      </Nodes>
+      <LayoutProperty>
+        <LayoutProperty>
+          <X>0</X>
+          <Y>0</Y>
+          <Width>960</Width>
+          <Height>544</Height>
+          <Visible>true</Visible>
+          <Anchors>None</Anchors>
+        </LayoutProperty>
+        <LayoutProperty>
+          <X>0</X>
+          <Y>0</Y>
+          <Width>544</Width>
+          <Height>960</Height>
+          <Visible>true</Visible>
+          <Anchors>None</Anchors>
+        </LayoutProperty>
+      </LayoutProperty>
+      <Property i:type="SceneProperty">
+        <Effect>None</Effect>
+        <OwnerNode z:Ref="i2" />
+        <VariableName>TestPage</VariableName>
+        <BackgroundAlpha>0</BackgroundAlpha>
+        <BackgroundColor xmlns:d5p1="http://schemas.datacontract.org/2004/07/System.Windows.Media">
+          <d5p1:A>255</d5p1:A>
+          <d5p1:B>255</d5p1:B>
+          <d5p1:G>255</d5p1:G>
+          <d5p1:R>255</d5p1:R>
+          <d5p1:ScA>1</d5p1:ScA>
+          <d5p1:ScB>1</d5p1:ScB>
+          <d5p1:ScG>1</d5p1:ScG>
+          <d5p1:ScR>1</d5p1:ScR>
+        </BackgroundColor>
+        <ShowNavigationBar>false</ShowNavigationBar>
+        <Title></Title>
+        <TransitionIn>None</TransitionIn>
+      </Property>
+      <IsRoot>true</IsRoot>
+      <PivotPos>LeftTop</PivotPos>
+      <WidgetType>Scene</WidgetType>
+      <ID>1090194824</ID>
+      <ZIndex>0</ZIndex>
+      <LayoutAssistInfo>
+        <SnapGuidesList>
+          <ArrayOfSnapGuide />
+          <ArrayOfSnapGuide />
+        </SnapGuidesList>
+        <OwnerNode z:Ref="i2" />
+      </LayoutAssistInfo>
+      <IsHideInLayout>false</IsHideInLayout>
+      <IsLockInLayout>false</IsLockInLayout>
+    </UICNode>
+    <UICNode z:Ref="i4" />
+  </Nodes>
+  <MajorVersion>0</MajorVersion>
+  <MinorVersion>1</MinorVersion>
+  <LayoutType>Horizontal</LayoutType>
+  <ProjectName>vitaUnit</ProjectName>
+  <NameSpace>VitaUnit</NameSpace>
+  <Language i:nil="true" />
+  <LanguageTableFileName>vitaUnit_LanguageTable.csv</LanguageTableFileName>
+  <ClassDir></ClassDir>
+</Project>
