@@ -32,6 +32,10 @@ namespace VitaUnit
 			_resultLabel.Text = text;
 		}
 		
+		public TestResult TestResult {
+			get{ return _testResult;}
+		}
+		
 		public void SetTestResult(TestResult testResult) {
 			_testResult = testResult;
 			SetText(_testResult.MethodName);

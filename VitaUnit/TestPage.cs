@@ -55,6 +55,7 @@ namespace VitaUnit
 		}
 		
 		internal void OnTestResultItemPressed(TestResultItem resultItem) {
+			_resultLabel.Text = resultItem.TestResult.Message;
 		}
 	}
 }

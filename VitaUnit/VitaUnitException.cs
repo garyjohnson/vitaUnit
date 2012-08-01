@@ -6,6 +6,9 @@ namespace VitaUnit
 	{
 		public VitaUnitException() {
 		}
+		
+		public VitaUnitException(string message) : base(message) {
+		}
 	}
 }
 

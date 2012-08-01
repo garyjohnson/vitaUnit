@@ -116,6 +116,37 @@ namespace VitaUnit.Test
 			
 			Assert.IsTrue(threwException);
 		}
+		
+		[TestMethod]
+		public void ShouldThrowVitaUnitExceptionOnAssertFail() {
+			
+			bool threwException = false;
+			
+			try {
+				Assert.Fail();
+			} catch (VitaUnitException) {
+				threwException = true;
+			}
+			
+			Assert.IsTrue(threwException);
+		}
+		
+		[TestMethod]
+		public void ShouldShowMessageInVitaUnitException() {
+			
+			bool threwException = false;
+			string failureMessage = "This is my test";
+			
+			try {
+				object testObject = new object();
+				Assert.AreEqual(testObject, null, failureMessage);
+			} catch (VitaUnitException ex) {
+				threwException = true;
+				Assert.AreEqual(failureMessage, ex.Message);
+			}
+			
+			Assert.IsTrue(threwException);
+		}
 	}
 }
 
