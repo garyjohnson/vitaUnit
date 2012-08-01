@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace VitaUnit
 {
-	public class TestResults : IDictionary<string,List<TestResult>>
+	internal class TestResults : IDictionary<string,List<TestResult>>
 	{
 		private readonly Dictionary<string,List<TestResult>> _testResults = new Dictionary<string, List<TestResult>>();
 		
@@ -17,6 +17,12 @@ namespace VitaUnit
 		
 		public void Add(string key, List<TestResult> value) {
 			_testResults.Add(key, value);
+		}
+		
+		public void AddRange(TestResults sourceResults) {
+			foreach(string key in sourceResults.Keys) {
+				Add(key, sourceResults[key]);
+			}
 		}
 		
 		public void Clear() {

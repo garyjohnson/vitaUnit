@@ -11,7 +11,9 @@ namespace VitaUnit
 {
     partial class TestResultItem
     {
-        Label testResultLabel;
+        Label _resultLabel;
+        ImageBox _failureImage;
+        ImageBox _successImage;
 
         private void InitializeWidget()
         {
@@ -20,17 +22,31 @@ namespace VitaUnit
 
         private void InitializeWidget(LayoutOrientation orientation)
         {
-            testResultLabel = new Label();
-            testResultLabel.Name = "testResultLabel";
+            _resultLabel = new Label();
+            _resultLabel.Name = "_resultLabel";
+            _failureImage = new ImageBox();
+            _failureImage.Name = "_failureImage";
+            _successImage = new ImageBox();
+            _successImage.Name = "_successImage";
 
-            // testResultLabel
-            testResultLabel.TextColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 255f / 255f);
-            testResultLabel.Font = new UIFont(FontAlias.System, 25, FontStyle.Regular);
-            testResultLabel.LineBreak = LineBreak.Character;
+            // _resultLabel
+            _resultLabel.TextColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 255f / 255f);
+            _resultLabel.Font = new UIFont(FontAlias.System, 24, FontStyle.Regular);
+            _resultLabel.LineBreak = LineBreak.Word;
+
+            // _failureImage
+            _failureImage.Image = null;
+            _failureImage.ImageScaleType = ImageScaleType.AspectInside;
+
+            // _successImage
+            _successImage.Image = null;
+            _successImage.ImageScaleType = ImageScaleType.AspectInside;
 
             // TestResultItem
             this.BackgroundColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 0f / 255f);
-            this.AddChildLast(testResultLabel);
+            this.AddChildLast(_resultLabel);
+            this.AddChildLast(_failureImage);
+            this.AddChildLast(_successImage);
 
             SetWidgetLayout(orientation);
 
@@ -46,21 +62,41 @@ namespace VitaUnit
                     this.SetSize(50, 960);
                     this.Anchors = Anchors.None;
 
-                    testResultLabel.SetPosition(79, 36);
-                    testResultLabel.SetSize(214, 36);
-                    testResultLabel.Anchors = Anchors.None;
-                    testResultLabel.Visible = true;
+                    _resultLabel.SetPosition(79, 36);
+                    _resultLabel.SetSize(214, 36);
+                    _resultLabel.Anchors = Anchors.None;
+                    _resultLabel.Visible = true;
+
+                    _failureImage.SetPosition(-46, -66);
+                    _failureImage.SetSize(200, 200);
+                    _failureImage.Anchors = Anchors.None;
+                    _failureImage.Visible = true;
+
+                    _successImage.SetPosition(-72, -71);
+                    _successImage.SetSize(200, 200);
+                    _successImage.Anchors = Anchors.None;
+                    _successImage.Visible = true;
 
                     break;
 
                 default:
-                    this.SetSize(400, 50);
+                    this.SetSize(400, 70);
                     this.Anchors = Anchors.None;
 
-                    testResultLabel.SetPosition(0, 0);
-                    testResultLabel.SetSize(400, 50);
-                    testResultLabel.Anchors = Anchors.Top | Anchors.Left;
-                    testResultLabel.Visible = true;
+                    _resultLabel.SetPosition(76, 11);
+                    _resultLabel.SetSize(323, 48);
+                    _resultLabel.Anchors = Anchors.Top | Anchors.Bottom | Anchors.Left | Anchors.Right;
+                    _resultLabel.Visible = true;
+
+                    _failureImage.SetPosition(19, 19);
+                    _failureImage.SetSize(32, 32);
+                    _failureImage.Anchors = Anchors.None;
+                    _failureImage.Visible = false;
+
+                    _successImage.SetPosition(19, 19);
+                    _successImage.SetSize(32, 32);
+                    _successImage.Anchors = Anchors.None;
+                    _successImage.Visible = true;
 
                     break;
             }
@@ -69,7 +105,7 @@ namespace VitaUnit
 
         public void UpdateLanguage()
         {
-            testResultLabel.Text = "The test is done and stuff!";
+            _resultLabel.Text = "TestMethodName";
         }
 
         public void InitializeDefaultEffect()

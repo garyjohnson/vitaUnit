@@ -2,7 +2,7 @@ using System;
 
 namespace VitaUnit
 {
-	public class TestResult
+	internal class TestResult
 	{
 		public TestResult(string methodName, bool wasSuccessful, string message) {
 			MethodName = methodName;

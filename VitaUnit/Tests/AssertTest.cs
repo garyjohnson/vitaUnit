@@ -40,6 +40,25 @@ namespace VitaUnit.Test
 		public void ShouldNotThrowExceptionWhenAssertIsFalseSucceeds() {
 			Assert.IsFalse(false);
 		}
+		
+		[TestMethod]
+		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualFailsForValueType() {
+			
+			bool threwException = false;
+			
+			try {
+				Assert.AreEqual(1,2);
+			} catch (VitaUnitException) {
+				threwException = true;
+			}
+			
+			Assert.IsTrue(threwException);
+		}
+		
+		[TestMethod]
+		public void ShouldNotThrowExceptionWhenAssertAreEqualSucceedsForValueType() {
+			Assert.AreEqual(100, 100);
+		}
 	}
 }
 

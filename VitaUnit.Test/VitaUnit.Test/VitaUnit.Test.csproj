@@ -10,6 +10,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>VitaUnit.Test</RootNamespace>
     <AssemblyName>VitaUnit.Test</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\VitaUnitTest.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMain.cs" />
-    <Compile Include="AssertTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -64,5 +65,8 @@
       <Project>{AB629BCA-FA25-4231-9D96-610FEBB51B85}</Project>
       <Name>VitaUnit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\" />
   </ItemGroup>
 </Project>

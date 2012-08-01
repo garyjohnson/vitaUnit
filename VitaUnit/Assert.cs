@@ -14,6 +14,10 @@ namespace VitaUnit
 				OnTestFailure();
 		}
 		
+		public static void AreEqual(object firstValue, object secondValue) {
+			IsTrue(firstValue.Equals(secondValue));
+		}
+		
 		private static void OnTestFailure() {
 			throw new VitaUnitException();
 		}

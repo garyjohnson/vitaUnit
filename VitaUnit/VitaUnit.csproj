@@ -10,6 +10,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>VitaUnit</RootNamespace>
     <AssemblyName>VitaUnit</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>VitaUnit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,5 +64,18 @@
     <Compile Include="VitaUnitException.cs" />
     <Compile Include="TestResult.cs" />
     <Compile Include="TestResults.cs" />
+    <Compile Include="IocContainer.cs" />
+    <Compile Include="ITestRunner.cs" />
+    <Compile Include="Tests\AssertTest.cs" />
+    <Compile Include="Tests\TestPageTest.cs" />
+    <Compile Include="Resources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\vitaunit_failure.png" />
+    <EmbeddedResource Include="assets\vitaunit_success.png" />
   </ItemGroup>
 </Project>

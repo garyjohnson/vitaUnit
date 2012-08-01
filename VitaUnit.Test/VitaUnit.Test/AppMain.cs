@@ -5,6 +5,7 @@ using Sce.PlayStation.Core;
 using Sce.PlayStation.Core.Environment;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Input;
+using System.Reflection;
 
 namespace VitaUnit.Test
 {
@@ -14,7 +15,11 @@ namespace VitaUnit.Test
 		
 		public static void Main(string[] args) {
 #if TEST
-			VitaUnitRunner.RunTests();
+			try{
+				VitaUnitRunner.RunTests(Assembly.Load("VitaUnit"), Assembly.GetEntryAssembly());
+			}catch(Exception ex) {
+				ex.ToString();
+			}
 #else
 			RunGame();
 #endif

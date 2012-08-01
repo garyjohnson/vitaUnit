@@ -7,40 +7,54 @@ using Sce.PlayStation.HighLevel.UI;
 
 namespace VitaUnit
 {
-	public partial class TestPage : Scene
+	internal partial class TestPage : Scene
 	{
 		private TestResults _testResults;
 		private readonly ListSectionCollection _sections = new ListSectionCollection();
+		private ITestRunner _testRunner;
         
 		public TestPage() {
+			_testRunner = VitaUnitRunner.GetService<ITestRunner>();
 			InitializeWidget();
 			InitializeTestResultPanel();
 		}
+		
+		internal Label TestResultDetailLabel {
+			get{ return this._resultLabel;}
+		}
 
 		private void InitializeTestResultPanel() {
-			testResultPanel.SetListItemCreator(OnListItemCreate);
-			testResultPanel.SetListItemUpdater(OnListItemUpdate);
-			testResultPanel.Sections = _sections;
+			_resultPanel.SetListItemCreator(OnListItemCreate);
+			_resultPanel.SetListItemUpdater(OnListItemUpdate);
+			_resultPanel.Sections = _sections;
 		}
 
 		protected override void OnShown() {
 			base.OnShown();
-			_testResults = TestRunner.Run();
+			_testResults = _testRunner.Run(VitaUnitRunner.TestAssemblies);
 			
 			foreach(string key in _testResults.Keys) {
-				testResultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
+				_resultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
 			}	
 		}
 		
 		private ListPanelItem OnListItemCreate() {
-			return new TestResultItem();
+			var testResultItem = new TestResultItem();
+			return testResultItem;
 		}
 		
 		private void OnListItemUpdate(ListPanelItem listItem) {
-			TestResultItem testResult = (TestResultItem)listItem;
-			string className = _sections[listItem.SectionIndex].Title;
-			TestResult result = _testResults[className][testResult.Index];
-			testResult.SetText(result.MethodName + " " + result.Message);
+			TestResultItem testResultItem = (TestResultItem)listItem;
+			TestResult result = GetTestResultAtIndex(listItem.SectionIndex, listItem.IndexInSection);
+			testResultItem.SetTestResult(result);
+		}
+
+		private TestResult GetTestResultAtIndex(int sectionIndex, int indexInSection) {
+			string className = _sections[sectionIndex].Title;
+			return _testResults[className][indexInSection];
+		}
+		
+		internal void OnTestResultItemPressed(TestResultItem resultItem) {
 		}
 	}
 }
