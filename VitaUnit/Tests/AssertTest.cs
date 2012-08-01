@@ -88,13 +88,28 @@ namespace VitaUnit.Test
 		}
 		
 		[TestMethod]
+		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsFirstParamAsNull() {
+			
+			bool threwException = false;
+			
+			try {
+				object testObject = new object();
+				Assert.AreEqual(null, testObject);
+			} catch (VitaUnitException) {
+				threwException = true;
+			}
+			
+			Assert.IsTrue(threwException);
+		}
+		
+		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsSecondParamAsNull() {
 			
 			bool threwException = false;
 			
 			try {
-				object testObject1 = new object();
-				Assert.AreEqual(testObject1, null);
+				object testObject = new object();
+				Assert.AreEqual(testObject, null);
 			} catch (VitaUnitException) {
 				threwException = true;
 			}

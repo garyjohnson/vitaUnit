@@ -17,6 +17,9 @@ namespace VitaUnit
 		public static void AreEqual(object firstValue, object secondValue) {
 			if(firstValue == null && secondValue == null)
 				return;
+				
+			if(firstValue == null || secondValue == null)
+				OnTestFailure();
 			
 			IsTrue(firstValue.Equals(secondValue));
 		}
