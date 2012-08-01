@@ -7,13 +7,9 @@ namespace VitaUnit.Test
 	{
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsTrueFails() {
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				Assert.IsTrue(false);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
@@ -25,13 +21,9 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsFalseFails() {
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				Assert.IsFalse(true);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
@@ -43,14 +35,9 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualFailsForValueType() {
-			
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				Assert.AreEqual(1, 2);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
@@ -62,16 +49,11 @@ namespace VitaUnit.Test
 				
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualFailsForReferenceType() {
-			
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				object testObject1 = new object();
 				object testObject2 = new object();
 				Assert.AreEqual(testObject1, testObject2);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
@@ -89,44 +71,29 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsFirstParamAsNull() {
-			
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				object testObject = new object();
 				Assert.AreEqual(null, testObject);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsSecondParamAsNull() {
-			
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				object testObject = new object();
 				Assert.AreEqual(testObject, null);
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionOnAssertFail() {
-			
-			bool threwException = false;
-			
-			try {
+			bool threwException = DidThrowVitaUnitException(()=>{
 				Assert.Fail();
-			} catch (VitaUnitException) {
-				threwException = true;
-			}
+			});
 			
 			Assert.IsTrue(threwException);
 		}
@@ -146,6 +113,18 @@ namespace VitaUnit.Test
 			}
 			
 			Assert.IsTrue(threwException);
+		}
+		
+		public bool DidThrowVitaUnitException(Action action) {
+			bool threwException = false;
+			
+			try {
+				action();
+			} catch (VitaUnitException) {
+				threwException = true;
+			}
+			
+			return threwException;
 		}
 	}
 }
