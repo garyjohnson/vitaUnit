@@ -5,21 +5,21 @@ namespace VitaUnit
 	public static class Assert
 	{
 		public static void Fail() {
-			OnTestFailure();
+			OnTestFailure("The test has failed due to an Assert.Fail().");
 		}
 		
 		public static void IsTrue(bool condition) {
 			if(!condition)
-				OnTestFailure();
+				OnTestFailure("Expected the value to be true, but was false.");
 		}
 		
 		public static void IsFalse(bool condition) {
 			if(condition)
-				OnTestFailure();
+				OnTestFailure("Expected the value to be false, but was true.");
 		}
 		
 		public static void AreEqual(object firstValue, object secondValue) {
-			AreEqual(firstValue, secondValue, null);
+			AreEqual(firstValue, secondValue, string.Format("Expected the value to equal <{0}>, but was <{1}> instead.", firstValue, secondValue));
 		}
 		
 		public static void AreEqual(object firstValue, object secondValue, string failureMessage) {
@@ -31,10 +31,6 @@ namespace VitaUnit
 			
 			if(!firstValue.Equals(secondValue))
 				OnTestFailure(failureMessage);
-		}
-		
-		private static void OnTestFailure() {
-			OnTestFailure(null);
 		}
 		
 		private static void OnTestFailure(string message) {

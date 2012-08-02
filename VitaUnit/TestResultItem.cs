@@ -26,6 +26,9 @@ namespace VitaUnit
             
 			_failureImage.Image = _failureImageAsset;
 			_successImage.Image = _successImageAsset;
+			
+			TouchResponse = true;
+			HookChildTouchEvent = true;
 		}
         
 		private void SetText(string text) {

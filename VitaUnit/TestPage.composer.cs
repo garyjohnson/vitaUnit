@@ -12,7 +12,8 @@ namespace VitaUnit
     partial class TestPage
     {
         ListPanel _resultPanel;
-        Label _resultLabel;
+        VitaUnit.TestResultDetail _resultDetail;
+        VitaUnit.TestSummary _testSummary;
 
         private void InitializeWidget()
         {
@@ -23,23 +24,20 @@ namespace VitaUnit
         {
             _resultPanel = new ListPanel();
             _resultPanel.Name = "_resultPanel";
-            _resultLabel = new Label();
-            _resultLabel.Name = "_resultLabel";
+            _resultDetail = new VitaUnit.TestResultDetail();
+            _resultDetail.Name = "_resultDetail";
+            _testSummary = new VitaUnit.TestSummary();
+            _testSummary.Name = "_testSummary";
 
             // _resultPanel
             _resultPanel.ScrollBarVisibility = ScrollBarVisibility.ScrollableVisible;
             _resultPanel.ShowEmptySection = false;
             _resultPanel.SetListItemCreator(TestResultItem.Creator);
 
-            // _resultLabel
-            _resultLabel.TextColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 255f / 255f);
-            _resultLabel.Font = new UIFont(FontAlias.System, 24, FontStyle.Regular);
-            _resultLabel.LineBreak = LineBreak.Word;
-            _resultLabel.VerticalAlignment = VerticalAlignment.Top;
-
             // TestPage
             this.RootWidget.AddChildLast(_resultPanel);
-            this.RootWidget.AddChildLast(_resultLabel);
+            this.RootWidget.AddChildLast(_resultDetail);
+            this.RootWidget.AddChildLast(_testSummary);
 
             SetWidgetLayout(orientation);
 
@@ -60,10 +58,15 @@ namespace VitaUnit
                     _resultPanel.Anchors = Anchors.None;
                     _resultPanel.Visible = true;
 
-                    _resultLabel.SetPosition(598, 299);
-                    _resultLabel.SetSize(214, 36);
-                    _resultLabel.Anchors = Anchors.None;
-                    _resultLabel.Visible = true;
+                    _resultDetail.SetPosition(545, 0);
+                    _resultDetail.SetSize(400, 200);
+                    _resultDetail.Anchors = Anchors.None;
+                    _resultDetail.Visible = true;
+
+                    _testSummary.SetPosition(346, -75);
+                    _testSummary.SetSize(400, 200);
+                    _testSummary.Anchors = Anchors.None;
+                    _testSummary.Visible = true;
 
                     break;
 
@@ -71,15 +74,20 @@ namespace VitaUnit
                     this.DesignWidth = 960;
                     this.DesignHeight = 544;
 
-                    _resultPanel.SetPosition(0, 0);
-                    _resultPanel.SetSize(545, 544);
+                    _resultPanel.SetPosition(0, 75);
+                    _resultPanel.SetSize(545, 469);
                     _resultPanel.Anchors = Anchors.None;
                     _resultPanel.Visible = true;
 
-                    _resultLabel.SetPosition(545, 0);
-                    _resultLabel.SetSize(415, 544);
-                    _resultLabel.Anchors = Anchors.Top | Anchors.Bottom | Anchors.Left | Anchors.Right;
-                    _resultLabel.Visible = true;
+                    _resultDetail.SetPosition(545, 75);
+                    _resultDetail.SetSize(415, 469);
+                    _resultDetail.Anchors = Anchors.None;
+                    _resultDetail.Visible = true;
+
+                    _testSummary.SetPosition(0, 0);
+                    _testSummary.SetSize(960, 75);
+                    _testSummary.Anchors = Anchors.None;
+                    _testSummary.Visible = true;
 
                     break;
             }
@@ -88,7 +96,6 @@ namespace VitaUnit
 
         public void UpdateLanguage()
         {
-            _resultLabel.Text = "Label";
         }
 
         private void onShowing(object sender, EventArgs e)

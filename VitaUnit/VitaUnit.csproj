@@ -69,10 +69,16 @@
     <Compile Include="Tests\AssertTest.cs" />
     <Compile Include="Tests\TestPageTest.cs" />
     <Compile Include="Resources.cs" />
+    <Compile Include="TestResultDetail.composer.cs" />
+    <Compile Include="TestResultDetail.cs" />
+    <Compile Include="TestSummary.composer.cs" />
+    <Compile Include="TestSummary.cs" />
+    <Compile Include="Tests\Mocks\MockTestResultDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
     <Folder Include="Tests\" />
+    <Folder Include="Tests\Mocks\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="assets\vitaunit_failure.png" />

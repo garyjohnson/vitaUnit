@@ -43,7 +43,7 @@ namespace VitaUnit
             _successImage.ImageScaleType = ImageScaleType.AspectInside;
 
             // TestResultItem
-            this.BackgroundColor = new UIColor(0f / 255f, 0f / 255f, 0f / 255f, 0f / 255f);
+            this.BackgroundColor = new UIColor(1f / 255f, 1f / 255f, 1f / 255f, 2f / 255f);
             this.AddChildLast(_resultLabel);
             this.AddChildLast(_failureImage);
             this.AddChildLast(_successImage);

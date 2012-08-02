@@ -19,8 +19,9 @@ namespace VitaUnit
 			InitializeTestResultPanel();
 		}
 		
-		internal Label TestResultDetailLabel {
-			get{ return this._resultLabel;}
+		internal TestResultDetail ResultDetail {
+			get{ return _resultDetail; }
+			set { _resultDetail = value;}
 		}
 
 		private void InitializeTestResultPanel() {
@@ -36,11 +37,23 @@ namespace VitaUnit
 			foreach(string key in _testResults.Keys) {
 				_resultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
 			}	
+			
+			_testSummary.SetTestResults(_testResults);
 		}
 		
 		private ListPanelItem OnListItemCreate() {
 			var testResultItem = new TestResultItem();
+			testResultItem.TouchEventReceived += HandleTestResultItemTouchEventReceived;
 			return testResultItem;
+		}
+
+		void HandleTestResultItemTouchEventReceived(object sender, TouchEventArgs e) {
+			TestResultItem item = sender as TestResultItem;
+			if(item != null) {
+				if(e.TouchEvents.PrimaryTouchEvent.Type == TouchEventType.Up) {
+					OnTestResultItemPressed(item);
+				}
+			}
 		}
 		
 		private void OnListItemUpdate(ListPanelItem listItem) {
@@ -55,7 +68,8 @@ namespace VitaUnit
 		}
 		
 		internal void OnTestResultItemPressed(TestResultItem resultItem) {
-			_resultLabel.Text = resultItem.TestResult.Message;
+			if(resultItem != null)
+				_resultDetail.SetTestResult(resultItem.TestResult);
 		}
 	}
 }

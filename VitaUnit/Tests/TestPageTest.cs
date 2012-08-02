@@ -6,17 +6,17 @@ namespace VitaUnit.Test
 	public class TestPageTest
 	{
 		[TestMethod]
-		public void ShouldUpdateDetailLabelOnTestResultItemPress() {
-			string expectedText = "This is my test message";
-			
+		public void ShouldUpdateDetailsOnTestResultItemPress() {
 			TestPage testPage = new TestPage();
+			var testResultDetail = new MockTestResultDetail();
+			testPage.ResultDetail = testResultDetail;
+			
 			TestResultItem resultItem = new TestResultItem();
-			resultItem.SetTestResult(new TestResult("Test", true, expectedText));
+			var expectedResult = new TestResult("", true, "");
+			resultItem.SetTestResult(expectedResult);
 			testPage.OnTestResultItemPressed(resultItem);
 			
-			string actualText = testPage.TestResultDetailLabel.Text;
-			
-			Assert.AreEqual(expectedText, actualText, "Expected the result label to be updated based on the pressed item.");
+			Assert.AreEqual(expectedResult, testResultDetail.TestResult);
 		}
 	}
 }

@@ -49,9 +49,9 @@ namespace VitaUnit
 			
 			try {
 				testMethod.Invoke(testClassInstance, null);
-				testResult = new TestResult(methodName, true, "Success");
+				testResult = new TestResult(methodName, true, "The test ran successfully.");
 			} catch (Exception ex) {
-				testResult = new TestResult(methodName, false, "Failed: " + ex.Message);
+				testResult = new TestResult(methodName, false, "The test failed: " + ex.InnerException.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
 			}
 			return testResult;
 		}
