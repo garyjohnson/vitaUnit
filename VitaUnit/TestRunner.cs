@@ -1,34 +1,79 @@
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading;
+using System.Linq;
 
 namespace VitaUnit
 {
 	internal class TestRunner : ITestRunner
 	{
-		public TestResults Run() {
-			return Run(Assembly.GetEntryAssembly());
+		private TestResults _uiResults;
+		private ITestMethodProvider _testMethodProvider;
+		private ITaskRunner _taskRunner;
+		
+		public event EventHandler<EventArgs<TestResult>> SingleTestCompleted;
+		public event EventHandler<EventArgs<TestResults>> AllTestsCompleted;
+		
+		public TestRunner() {
+			_testMethodProvider = VitaUnitRunner.GetService<ITestMethodProvider>();
+			_taskRunner = VitaUnitRunner.GetService<ITaskRunner>();
 		}
 		
-		public TestResults Run(params Assembly[] testAssemblies) {
-			var testResults = new TestResults();
-			foreach(Type testClass in GetTestClasses(testAssemblies)) {
-				object testClassInstance = TryCreateInstanceOf(testClass);
-				if(testClassInstance != null)
-					testResults.AddRange(RunAllTestMethodsInTestClass(testClassInstance));
-			}
-			
-			return testResults;
+		public void Run() {
+			Run(Assembly.GetEntryAssembly());
+		}
+		
+		public void Run(params Assembly[] testAssemblies) {
+			_uiResults = RunTests(testAssemblies, true);
+			_taskRunner.RunTask(testAssemblies, OnRunTask, OnRunTaskCompleted);
 		}
 
-		private TestResults RunAllTestMethodsInTestClass(object testClassInstance) {
-			var testResults = new TestResults();
-			foreach(MethodInfo testMethod in GetTestMethods(testClassInstance.GetType())) {
-				string className = testClassInstance.GetType().Name;
-				TestResult testResult = RunTestMethod(testClassInstance, testMethod);
-				testResults[className].Add(testResult);
+		private void FireSingleTestCompleted(TestResult testResult) {
+			if(SingleTestCompleted != null)
+				SingleTestCompleted(this, new EventArgs<TestResult>(testResult));
+		}
+
+		private void FireAllTestsCompleted(TestResults testResults) {
+			if(AllTestsCompleted != null)
+				AllTestsCompleted(this, new EventArgs<TestResults>(testResults));
+		}
+
+		private object OnRunTask(object state) {
+			Assembly[] testAssemblies = (Assembly[])state;
+			return RunTests(testAssemblies, false);
+		}
+
+		private void OnRunTaskCompleted(object result) {
+			TestResults results = (TestResults)result;
+			foreach(var key in results.Keys) {
+				foreach(var item in results[key]) {
+					_uiResults[key].Add(item);
+				}
 			}
 			
+			FireAllTestsCompleted(_uiResults);
+		}
+
+		private TestResults RunTests(Assembly[] testAssemblies, bool shouldRunUIThreadTests) {
+			var testResults = new TestResults();
+			foreach(Type testClass in _testMethodProvider.GetTestClasses(testAssemblies)) {
+				object testClassInstance = TryCreateInstanceOf(testClass);
+				if(testClassInstance == null) 
+					continue;
+					
+				foreach(ITestMethod testMethod in _testMethodProvider.GetTestMethods(testClassInstance.GetType())) {
+					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
+						continue;
+						
+					TestResult testResult = RunTestMethod(testClassInstance, testMethod);
+						
+					string className = testClassInstance.GetType().Name;
+					testResults[className].Add(testResult);
+					FireSingleTestCompleted(testResult);
+				}
+			}
 			return testResults;
 		}
 
@@ -42,47 +87,18 @@ namespace VitaUnit
 			return testClassInstance;
 		}
 
-		private TestResult RunTestMethod(object testClassInstance, MethodInfo testMethod) {
+		private TestResult RunTestMethod(object testClassInstance, ITestMethod testMethod) {
 			TestResult testResult = null;
 			string className = testClassInstance.GetType().Name;
 			string methodName = testMethod.Name;
 			
 			try {
-				testMethod.Invoke(testClassInstance, null);
-				testResult = new TestResult(methodName, true, "The test ran successfully.");
+				testMethod.Invoke(testClassInstance);
+				testResult = new TestResult(className, methodName, true, "The test ran successfully.");
 			} catch (Exception ex) {
-				testResult = new TestResult(methodName, false, "The test failed: " + ex.InnerException.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
+				testResult = new TestResult(className, methodName, false, "The test failed: " + ex.InnerException.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
 			}
 			return testResult;
-		}
-		
-		private IEnumerable<Type> GetTestClasses(params Assembly[] assemblies) {
-			var testClasses = new List<Type>();
-			
-			foreach(Assembly assembly in assemblies) {
-				foreach(Type type in assembly.GetTypes()) {
-					foreach(Attribute attribute in type.GetCustomAttributes(true)) {
-						if(attribute is TestClassAttribute) {
-							testClasses.Add(type);
-						}
-					}
-				}
-			}
-			return testClasses;
-		}
-		
-		private IEnumerable<MethodInfo> GetTestMethods(Type testClass) {
-			var testMethods = new List<MethodInfo>();
-			
-			foreach(MethodInfo method in testClass.GetMethods(BindingFlags.NonPublic|BindingFlags.DeclaredOnly|BindingFlags.Instance|BindingFlags.Public|BindingFlags.InvokeMethod)) {
-				foreach(Attribute innerAttribute in method.GetCustomAttributes(true)) {
-					if(innerAttribute is TestMethodAttribute) {
-						testMethods.Add(method);
-					}
-				}
-			}
-	
-			return testMethods;
 		}
 	}
 }

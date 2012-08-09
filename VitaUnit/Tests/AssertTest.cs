@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace VitaUnit.Test
 {
@@ -100,7 +101,6 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldShowMessageInVitaUnitException() {
-			
 			bool threwException = false;
 			string failureMessage = "This is my test";
 			

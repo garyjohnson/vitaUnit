@@ -5,7 +5,9 @@ namespace VitaUnit
 {
 	internal interface ITestRunner
 	{
-		TestResults Run(params Assembly[] testAssemblies);
+		void Run(params Assembly[] testAssemblies);
+		event EventHandler<EventArgs<TestResult>> SingleTestCompleted;
+		event EventHandler<EventArgs<TestResults>> AllTestsCompleted;
 	}
 }
 

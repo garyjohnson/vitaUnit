@@ -74,6 +74,20 @@
     <Compile Include="TestSummary.composer.cs" />
     <Compile Include="TestSummary.cs" />
     <Compile Include="Tests\Mocks\MockTestResultDetail.cs" />
+    <Compile Include="Tests\EventArgsT.cs" />
+    <Compile Include="RunOnUIThreadAttribute.cs" />
+    <Compile Include="Tests\Mocks\MockTestRunner.cs" />
+    <Compile Include="ReflectionTestMethodProvider.cs" />
+    <Compile Include="ITestMethodProvider.cs" />
+    <Compile Include="TestMethod.cs" />
+    <Compile Include="ITestMethod.cs" />
+    <Compile Include="Tests\TestRunnerTest.cs" />
+    <Compile Include="BackgroundTaskRunner.cs" />
+    <Compile Include="ITaskRunner.cs" />
+    <Compile Include="RunTaskDelegate.cs" />
+    <Compile Include="TaskCompletedDelegate.cs" />
+    <Compile Include="Tests\Mocks\MockTaskRunner.cs" />
+    <Compile Include="Tests\Mocks\MockTestMethodProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />

@@ -4,19 +4,40 @@ using Sce.PlayStation.Core;
 using Sce.PlayStation.Core.Imaging;
 using Sce.PlayStation.Core.Environment;
 using Sce.PlayStation.HighLevel.UI;
+using System.Threading;
 
 namespace VitaUnit
 {
 	internal partial class TestPage : Scene
 	{
-		private TestResults _testResults;
+		private TestResults _testResults = new TestResults();
 		private readonly ListSectionCollection _sections = new ListSectionCollection();
 		private ITestRunner _testRunner;
         
 		public TestPage() {
 			_testRunner = VitaUnitRunner.GetService<ITestRunner>();
+			_testRunner.SingleTestCompleted += OnSingleTestCompleted;
+			_testRunner.AllTestsCompleted += OnAllTestsCompleted;
 			InitializeWidget();
 			InitializeTestResultPanel();
+		}
+
+		private void OnSingleTestCompleted(object sender, EventArgs<TestResult> e) {
+			var testResult = (TestResult)e.Item;
+			_testResults[testResult.ClassName].Add(testResult);
+			_testSummary.SetTestResults(_testResults);
+		}
+
+		private void OnAllTestsCompleted(object sender, EventArgs<TestResults> e) {
+			_testRunner.SingleTestCompleted -= OnSingleTestCompleted;	
+			_testRunner.AllTestsCompleted -= OnAllTestsCompleted;	
+			
+			_testResults = (TestResults)e.Item;	
+			foreach(string key in _testResults.Keys) {
+				_resultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
+			}	
+			
+			_testSummary.SetTestResults(_testResults);
 		}
 		
 		internal TestResultDetail ResultDetail {
@@ -32,13 +53,7 @@ namespace VitaUnit
 
 		protected override void OnShown() {
 			base.OnShown();
-			_testResults = _testRunner.Run(VitaUnitRunner.TestAssemblies);
-			
-			foreach(string key in _testResults.Keys) {
-				_resultPanel.Sections.Add(new ListSection(key, _testResults[key].Count));
-			}	
-			
-			_testSummary.SetTestResults(_testResults);
+			_testRunner.Run(VitaUnitRunner.TestAssemblies);
 		}
 		
 		private ListPanelItem OnListItemCreate() {
@@ -47,7 +62,7 @@ namespace VitaUnit
 			return testResultItem;
 		}
 
-		void HandleTestResultItemTouchEventReceived(object sender, TouchEventArgs e) {
+		private void HandleTestResultItemTouchEventReceived(object sender, TouchEventArgs e) {
 			TestResultItem item = sender as TestResultItem;
 			if(item != null) {
 				if(e.TouchEvents.PrimaryTouchEvent.Type == TouchEventType.Up) {

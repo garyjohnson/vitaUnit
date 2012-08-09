@@ -40,6 +40,8 @@ namespace VitaUnit
 		}
 		  
 		private static void InitializeServices() {
+			RegisterService<ITaskRunner, BackgroundTaskRunner>();
+			RegisterService<ITestMethodProvider, ReflectionTestMethodProvider>();
 			RegisterService<ITestRunner, TestRunner>();
 		}
 		
