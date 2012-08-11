@@ -68,11 +68,15 @@ namespace VitaUnit
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
 						
-					RunSetUp(testClassInstance, setUpMethod);
-						
-					TestResult testResult = RunTestMethod(testClassInstance, testMethod);
-						
+					bool didSetUpRun = TryRunSetUp(testClassInstance, setUpMethod);
 					string className = testClassInstance.GetType().Name;
+					TestResult testResult;		
+					
+					if(didSetUpRun)
+						testResult = RunTestMethod(testClassInstance, testMethod);
+					else
+						testResult = new TestResult(className, testMethod.Name, false, "SetUp failed.");
+						
 					testResults[className].Add(testResult);
 					FireSingleTestCompleted(testResult);
 				}
@@ -90,15 +94,18 @@ namespace VitaUnit
 			return testClassInstance;
 		}
 		
-		private void RunSetUp(object testClassInstance, IMethod setUpMethod) {
+		private bool TryRunSetUp(object testClassInstance, IMethod setUpMethod) {
 			if(setUpMethod == null)
-				return;
+				return true;
 			
-				try {
-					setUpMethod.Invoke(testClassInstance);
-				} catch (Exception) {
-				
-				}
+			bool didSetUpRun = true;
+			try {
+				setUpMethod.Invoke(testClassInstance);
+			} catch (Exception) {
+				didSetUpRun = false;
+			}
+			
+			return didSetUpRun;
 		}
 
 		private TestResult RunTestMethod(object testClassInstance, ITestMethod testMethod) {

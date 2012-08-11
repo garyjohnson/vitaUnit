@@ -23,6 +23,11 @@ namespace VitaUnit
 				OnTestFailure("Expected the value to be false, but was true.");
 		}
 		
+		public static void IsFalse(bool condition, string failureMessage) {
+			if(condition)
+				OnTestFailure(failureMessage);
+		}
+		
 		public static void AreEqual(object firstValue, object secondValue) {
 			AreEqual(firstValue, secondValue, string.Format("Expected the value to equal <{0}>, but was <{1}> instead.", firstValue, secondValue));
 		}

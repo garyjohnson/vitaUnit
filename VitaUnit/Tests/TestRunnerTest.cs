@@ -71,6 +71,20 @@ namespace VitaUnit
 			
 			Assert.IsTrue(testMethod2.WasInvokeCalled, "Expected other tests to run after exception during SetUp.");
 		}
+		
+		[TestMethod]
+		public void ShouldNotRunTestThatSetUpFailedFor() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
+			
+			setUpMethod.OnInvoke += (sender, e) => {
+				throw new Exception("Failure!");
+			};
+			
+			testRunner.Run();
+			
+			Assert.IsFalse(testMethod.WasInvokeCalled, "Expected test to not be run when SetUp fails.");
+			Assert.IsFalse(testMethod2.WasInvokeCalled, "Expected test to not be run when SetUp fails.");
+		}
 	}
 }
 
