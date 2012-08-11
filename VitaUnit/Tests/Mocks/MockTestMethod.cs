@@ -18,9 +18,10 @@ namespace VitaUnit
 			set;
 		}
 
+		private string _name = string.Empty;
 		public string Name {
-			get;
-			set;
+			get { return _name; }
+			set { _name = value; }
 		}
 		
 		public event EventHandler OnInvoke;

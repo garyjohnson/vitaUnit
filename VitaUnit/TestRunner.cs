@@ -68,22 +68,18 @@ namespace VitaUnit
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
 						
-					bool didSetUpRun = TryRunSetUp(testClassInstance, setUpMethod);
-					string className = testClassInstance.GetType().Name;
-					TestResult testResult;		
-					
-					if(didSetUpRun)
+					TestResult testResult = RunSetUp(testClassInstance, setUpMethod, testMethod);
+					if(testResult == null)
 						testResult = RunTestMethod(testClassInstance, testMethod);
-					else
-						testResult = new TestResult(className, testMethod.Name, false, "SetUp failed.");
 						
+					string className = testClassInstance.GetType().Name;
 					testResults[className].Add(testResult);
 					FireSingleTestCompleted(testResult);
 				}
 			}
 			return testResults;
 		}
-
+		
 		private object TryCreateInstanceOf(Type type) {
 			object testClassInstance = null;
 			try {
@@ -94,18 +90,19 @@ namespace VitaUnit
 			return testClassInstance;
 		}
 		
-		private bool TryRunSetUp(object testClassInstance, IMethod setUpMethod) {
+		private TestResult RunSetUp(object testClassInstance, IMethod setUpMethod, ITestMethod testMethod) {
 			if(setUpMethod == null)
-				return true;
+				return null;
 			
-			bool didSetUpRun = true;
+			TestResult testResult = null;
 			try {
 				setUpMethod.Invoke(testClassInstance);
-			} catch (Exception) {
-				didSetUpRun = false;
+			} catch (Exception ex) {
+				string className = testClassInstance.GetType().Name;
+				testResult = new TestResult(className, testMethod.Name, false, "SetUp failed: ", ex);
 			}
 			
-			return didSetUpRun;
+			return testResult;
 		}
 
 		private TestResult RunTestMethod(object testClassInstance, ITestMethod testMethod) {
@@ -117,7 +114,7 @@ namespace VitaUnit
 				testMethod.Invoke(testClassInstance);
 				testResult = new TestResult(className, methodName, true, "The test ran successfully.");
 			} catch (Exception ex) {
-				testResult = new TestResult(className, methodName, false, "The test failed: " + ex.InnerException.Message + Environment.NewLine + Environment.NewLine + ex.StackTrace);
+				testResult = new TestResult(className, methodName, false, "The test failed: ", ex);
 			}
 			return testResult;
 		}

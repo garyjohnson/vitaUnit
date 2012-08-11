@@ -18,7 +18,7 @@ namespace VitaUnit
 			testMethodProvider = new MockTestMethodProvider();
 			uiTestMethod = new MockTestMethod() { IsUIThreadTest = true };
 			testMethod = new MockTestMethod();
-			testMethod2 = new MockTestMethod();
+			testMethod2 = new MockTestMethod() ;
 			setUpMethod = new MockSetUpMethod();
 			testMethodProvider.TestClasses = new List<Type> { typeof(MockTestClass) };
 			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod, testMethod2 };
