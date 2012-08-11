@@ -36,7 +36,16 @@ namespace VitaUnit
 		}
 
 		public IMethod GetSetUpMethod(Type testClass) {
-			return null;
+			IMethod setUpMethod = null;
+			
+			foreach(MethodInfo method in testClass.GetMethods(BindingFlags.NonPublic|BindingFlags.DeclaredOnly|BindingFlags.Instance|BindingFlags.Public|BindingFlags.InvokeMethod)) {
+				foreach(Attribute innerAttribute in method.GetCustomAttributes(true)) {
+					if(innerAttribute is SetUpAttribute)
+						setUpMethod = new TestMethod(method);
+				}
+			}
+			
+			return setUpMethod;
 		}
 	}
 }

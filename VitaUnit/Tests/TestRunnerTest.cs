@@ -6,18 +6,33 @@ namespace VitaUnit
 	[TestClass]
 	public class TestRunnerTest
 	{
-		[TestMethod]
-		public void ShouldRunUITestsBeforeOtherTests() {
-			var testMethodProvider = new MockTestMethodProvider();
-			var uiTestMethod = new MockTestMethod() { IsUIThreadTest = true };
-			var testMethod = new MockTestMethod();
+		MockTestMethodProvider testMethodProvider;
+		MockTestMethod uiTestMethod;
+		MockTestMethod testMethod;
+		MockTestMethod testMethod2;
+		MockSetUpMethod setUpMethod;
+		TestRunner testRunner;
+		
+		[SetUp]
+		public void SetUp() {
+			testMethodProvider = new MockTestMethodProvider();
+			uiTestMethod = new MockTestMethod() { IsUIThreadTest = true };
+			testMethod = new MockTestMethod();
+			testMethod2 = new MockTestMethod();
+			setUpMethod = new MockSetUpMethod();
 			testMethodProvider.TestClasses = new List<Type> { typeof(MockTestClass) };
-			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod };
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod, testMethod2 };
+			testMethodProvider.SetUpMethod = setUpMethod;
 			
 			VitaUnitRunner.RegisterService<ITestMethodProvider>(testMethodProvider);
 			VitaUnitRunner.RegisterService<ITaskRunner, MockTaskRunner>();
 			
-			var testRunner = new TestRunner();
+			testRunner = new TestRunner();
+		}
+		
+		[TestMethod]
+		public void ShouldRunUITestsBeforeOtherTests() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod };
 			
 			bool wasUITestRunFirst = false;
 			uiTestMethod.OnInvoke += (sender, e) => {
@@ -33,18 +48,7 @@ namespace VitaUnit
 		
 		[TestMethod]
 		public void ShouldRunSetUpBeforeEveryTest() {
-			var testMethodProvider = new MockTestMethodProvider();
-			var testMethod = new MockTestMethod();
-			var testMethod2 = new MockTestMethod();
-			var setUpMethod = new MockSetUpMethod();
-			testMethodProvider.TestClasses = new List<Type> { typeof(MockTestClass) };
 			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
-			testMethodProvider.SetUpMethod = setUpMethod;
-			
-			VitaUnitRunner.RegisterService<ITestMethodProvider>(testMethodProvider);
-			VitaUnitRunner.RegisterService<ITaskRunner, MockTaskRunner>();
-			
-			var testRunner = new TestRunner();
 			
 			int timesSetUpCalled = 0;	
 			setUpMethod.OnInvoke += (sender, e) => {

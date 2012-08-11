@@ -2,10 +2,8 @@ using System;
 
 namespace VitaUnit
 {
-	internal interface ITestMethod
+	internal interface ITestMethod : IMethod
 	{
-		void Invoke(object instance);
-
 		bool IsUIThreadTest{ get; }
 
 		string Name{ get; }
