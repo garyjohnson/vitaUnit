@@ -13,6 +13,11 @@ namespace VitaUnit
 				OnTestFailure("Expected the value to be true, but was false.");
 		}
 		
+		public static void IsTrue(bool condition, string failureMessage) {
+			if(!condition)
+				OnTestFailure(failureMessage);
+		}
+		
 		public static void IsFalse(bool condition) {
 			if(condition)
 				OnTestFailure("Expected the value to be false, but was true.");

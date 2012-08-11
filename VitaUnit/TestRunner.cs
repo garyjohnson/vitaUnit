@@ -9,7 +9,7 @@ namespace VitaUnit
 {
 	internal class TestRunner : ITestRunner
 	{
-		private TestResults _uiResults;
+		private TestResults _uiResults = new TestResults();
 		private ITestMethodProvider _testMethodProvider;
 		private ITaskRunner _taskRunner;
 		
@@ -26,7 +26,7 @@ namespace VitaUnit
 		}
 		
 		public void Run(params Assembly[] testAssemblies) {
-			_uiResults = RunTests(testAssemblies, true);
+			//_uiResults = RunTests(testAssemblies, true)
 			_taskRunner.RunTask(testAssemblies, OnRunTask, OnRunTaskCompleted);
 		}
 

@@ -88,6 +88,8 @@
     <Compile Include="TaskCompletedDelegate.cs" />
     <Compile Include="Tests\Mocks\MockTaskRunner.cs" />
     <Compile Include="Tests\Mocks\MockTestMethodProvider.cs" />
+    <Compile Include="Tests\Mocks\MockTestMethod.cs" />
+    <Compile Include="Tests\Mocks\MockTestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
