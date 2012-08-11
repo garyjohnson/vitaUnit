@@ -55,6 +55,22 @@ namespace VitaUnit
 			
 			Assert.AreEqual(2, timesSetUpCalled, "Expected SetUp method to be called for each test method.");
 		}
+		
+		[TestMethod]
+		public void ShouldContinueRunningTestsAfterSetUpFailure() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
+			bool shouldThrowException = true;
+			setUpMethod.OnInvoke += (sender, e) => {
+				if(shouldThrowException) {
+					shouldThrowException = false;
+					throw new Exception("Throwing exception on first try");				
+				}	
+			};
+			
+			testRunner.Run();
+			
+			Assert.IsTrue(testMethod2.WasInvokeCalled, "Expected other tests to run after exception during SetUp.");
+		}
 	}
 }
 

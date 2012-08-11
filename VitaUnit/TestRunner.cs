@@ -68,8 +68,7 @@ namespace VitaUnit
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
 						
-					if(setUpMethod != null)
-						setUpMethod.Invoke(testClassInstance);
+					RunSetUp(testClassInstance, setUpMethod);
 						
 					TestResult testResult = RunTestMethod(testClassInstance, testMethod);
 						
@@ -89,6 +88,15 @@ namespace VitaUnit
 			}
 			
 			return testClassInstance;
+		}
+		
+		private void RunSetUp(object testClassInstance, IMethod setUpMethod) {
+			if(setUpMethod != null)
+				try {
+					setUpMethod.Invoke(testClassInstance);
+				} catch (Exception) {
+				
+				}
 		}
 
 		private TestResult RunTestMethod(object testClassInstance, ITestMethod testMethod) {
