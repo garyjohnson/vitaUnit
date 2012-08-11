@@ -33,7 +33,6 @@ namespace VitaUnit
 		[TestMethod]
 		public void ShouldRunUITestsBeforeOtherTests() {
 			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod };
-			
 			bool wasUITestRunFirst = false;
 			uiTestMethod.OnInvoke += (sender, e) => {
 				wasUITestRunFirst = !testMethod.WasInvokeCalled;
@@ -41,15 +40,12 @@ namespace VitaUnit
 			
 			testRunner.Run();
 			
-			VitaUnitRunner.RegisterService<ITestMethodProvider, ReflectionTestMethodProvider>();
-			
 			Assert.IsTrue(wasUITestRunFirst, "Expected UI thread test to be run first");
 		}
 		
 		[TestMethod]
 		public void ShouldRunSetUpBeforeEveryTest() {
 			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
-			
 			int timesSetUpCalled = 0;	
 			setUpMethod.OnInvoke += (sender, e) => {
 				timesSetUpCalled++;
