@@ -91,7 +91,9 @@ namespace VitaUnit
 		}
 		
 		private void RunSetUp(object testClassInstance, IMethod setUpMethod) {
-			if(setUpMethod != null)
+			if(setUpMethod == null)
+				return;
+			
 				try {
 					setUpMethod.Invoke(testClassInstance);
 				} catch (Exception) {
