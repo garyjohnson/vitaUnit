@@ -20,11 +20,6 @@ namespace VitaUnit.Test
 			
 			Assert.AreEqual(expectedResult, testResultDetail.TestResult);
 		}
-		
-		[TestMethod]
-		public void Test() {
-			Assert.IsFalse(true);
-		}
 	}
 }
 

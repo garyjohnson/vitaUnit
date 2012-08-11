@@ -26,7 +26,7 @@ namespace VitaUnit
 		}
 		
 		public void Run(params Assembly[] testAssemblies) {
-			//_uiResults = RunTests(testAssemblies, true)
+			_uiResults = RunTests(testAssemblies, true);
 			_taskRunner.RunTask(testAssemblies, OnRunTask, OnRunTaskCompleted);
 		}
 
@@ -63,9 +63,13 @@ namespace VitaUnit
 				if(testClassInstance == null) 
 					continue;
 					
+				IMethod setUpMethod = _testMethodProvider.GetSetUpMethod(testClass);
 				foreach(ITestMethod testMethod in _testMethodProvider.GetTestMethods(testClassInstance.GetType())) {
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
+						
+					if(setUpMethod != null)
+						setUpMethod.Invoke(testClassInstance);
 						
 					TestResult testResult = RunTestMethod(testClassInstance, testMethod);
 						

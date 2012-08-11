@@ -90,6 +90,8 @@
     <Compile Include="Tests\Mocks\MockTestMethodProvider.cs" />
     <Compile Include="Tests\Mocks\MockTestMethod.cs" />
     <Compile Include="Tests\Mocks\MockTestClass.cs" />
+    <Compile Include="IMethod.cs" />
+    <Compile Include="Tests\Mocks\MockSetUpMethod.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />

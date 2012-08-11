@@ -34,6 +34,10 @@ namespace VitaUnit
 			}
 			return testClasses;
 		}
+
+		public IMethod GetSetUpMethod(Type testClass) {
+			return null;
+		}
 	}
 }
 

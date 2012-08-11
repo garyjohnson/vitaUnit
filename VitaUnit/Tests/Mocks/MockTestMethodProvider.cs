@@ -7,7 +7,10 @@ namespace VitaUnit
 	internal class MockTestMethodProvider : ITestMethodProvider
 	{
 		public IEnumerable<Type> TestClasses { get; set; }
+
 		public IEnumerable<ITestMethod> TestMethods { get; set; }
+		
+		public IMethod SetUpMethod { get; set; }
 		
 		public IEnumerable<ITestMethod> GetTestMethods(Type testClass) {
 			return TestMethods;
@@ -15,6 +18,10 @@ namespace VitaUnit
 
 		public IEnumerable<Type> GetTestClasses(params Assembly[] assemblies) {
 			return TestClasses;
+		}
+
+		public IMethod GetSetUpMethod(Type testClass) {
+			return SetUpMethod;
 		}
 	}
 }
