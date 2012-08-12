@@ -10,7 +10,8 @@ namespace VitaUnit
 		MockTestMethod uiTestMethod;
 		MockTestMethod testMethod;
 		MockTestMethod testMethod2;
-		MockSetUpMethod setUpMethod;
+		MockMethod setUpMethod;
+		MockMethod tearDownMethod;
 		TestRunner testRunner;
 		
 		[SetUp]
@@ -19,10 +20,12 @@ namespace VitaUnit
 			uiTestMethod = new MockTestMethod() { IsUIThreadTest = true };
 			testMethod = new MockTestMethod();
 			testMethod2 = new MockTestMethod() ;
-			setUpMethod = new MockSetUpMethod();
+			setUpMethod = new MockMethod();
+			tearDownMethod = new MockMethod();
 			testMethodProvider.TestClasses = new List<Type> { typeof(MockTestClass) };
 			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, uiTestMethod, testMethod2 };
 			testMethodProvider.SetUpMethod = setUpMethod;
+			testMethodProvider.TearDownMethod = tearDownMethod;
 			
 			VitaUnitRunner.RegisterService<ITestMethodProvider>(testMethodProvider);
 			VitaUnitRunner.RegisterService<ITaskRunner, MockTaskRunner>();
@@ -84,6 +87,19 @@ namespace VitaUnit
 			
 			Assert.IsFalse(testMethod.WasInvokeCalled, "Expected test to not be run when SetUp fails.");
 			Assert.IsFalse(testMethod2.WasInvokeCalled, "Expected test to not be run when SetUp fails.");
+		}
+		
+		[TestMethod]
+		public void ShouldRunTearDownAfterEveryTest() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
+			int timesTearDownCalled = 0;	
+			tearDownMethod.OnInvoke += (sender, e) => {
+				timesTearDownCalled++;
+			};
+			
+			testRunner.Run();
+			
+			Assert.AreEqual(2, timesTearDownCalled, "Expected TearDown method to be called for each test method.");
 		}
 	}
 }

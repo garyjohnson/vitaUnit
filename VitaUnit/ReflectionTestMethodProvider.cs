@@ -47,6 +47,19 @@ namespace VitaUnit
 			
 			return setUpMethod;
 		}
+
+		public IMethod GetTearDownMethod(Type testClass) {
+			IMethod tearDownMethod = null;
+			
+			foreach(MethodInfo method in testClass.GetMethods(BindingFlags.NonPublic|BindingFlags.DeclaredOnly|BindingFlags.Instance|BindingFlags.Public|BindingFlags.InvokeMethod)) {
+				foreach(Attribute innerAttribute in method.GetCustomAttributes(true)) {
+					if(innerAttribute is TearDownAttribute)
+						tearDownMethod = new TestMethod(method);
+				}
+			}
+			
+			return tearDownMethod;
+		}
 	}
 }
 

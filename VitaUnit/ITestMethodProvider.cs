@@ -9,6 +9,7 @@ namespace VitaUnit
 		IEnumerable<ITestMethod> GetTestMethods(Type testClass);
 		IEnumerable<Type> GetTestClasses(params Assembly[] assemblies);
 		IMethod GetSetUpMethod(Type testClass);
+		IMethod GetTearDownMethod(Type testClass);
 	}
 }
 

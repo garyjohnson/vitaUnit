@@ -11,6 +11,7 @@ namespace VitaUnit
 		public IEnumerable<ITestMethod> TestMethods { get; set; }
 		
 		public IMethod SetUpMethod { get; set; }
+		public IMethod TearDownMethod { get; set; }
 		
 		public IEnumerable<ITestMethod> GetTestMethods(Type testClass) {
 			return TestMethods;
@@ -22,6 +23,10 @@ namespace VitaUnit
 
 		public IMethod GetSetUpMethod(Type testClass) {
 			return SetUpMethod;
+		}
+
+		public IMethod GetTearDownMethod(Type testClass) {
+			return TearDownMethod;
 		}
 	}
 }

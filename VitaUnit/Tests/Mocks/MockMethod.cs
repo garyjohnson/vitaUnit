@@ -2,7 +2,7 @@ using System;
 
 namespace VitaUnit
 {
-	public class MockSetUpMethod : IMethod
+	public class MockMethod : IMethod
 	{
 		public event EventHandler OnInvoke;
 		

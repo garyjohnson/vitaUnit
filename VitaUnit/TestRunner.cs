@@ -64,6 +64,7 @@ namespace VitaUnit
 					continue;
 					
 				IMethod setUpMethod = _testMethodProvider.GetSetUpMethod(testClass);
+				IMethod tearDownMethod = _testMethodProvider.GetTearDownMethod(testClass);
 				foreach(ITestMethod testMethod in _testMethodProvider.GetTestMethods(testClassInstance.GetType())) {
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
@@ -71,6 +72,9 @@ namespace VitaUnit
 					TestResult testResult = RunSetUp(testClassInstance, setUpMethod, testMethod);
 					if(testResult == null)
 						testResult = RunTestMethod(testClassInstance, testMethod);
+						
+					if(tearDownMethod != null)
+						tearDownMethod.Invoke(testClassInstance);
 						
 					string className = testClassInstance.GetType().Name;
 					testResults[className].Add(testResult);
