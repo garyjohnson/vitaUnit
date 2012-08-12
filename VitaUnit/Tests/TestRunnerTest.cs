@@ -136,6 +136,25 @@ namespace VitaUnit
 			
 			Assert.AreEqual(2, timesTearDownCalled, "Expected TearDown method to be called for each failing test method.");
 		}
+		
+		[TestMethod]
+		public void ShouldFailTestIfTearDownFails() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod };
+				
+			tearDownMethod.OnInvoke += (sender, e) => {
+				throw new Exception();
+			};
+			
+			int numberOfFailedTests = 0;
+			testRunner.SingleTestCompleted += delegate(object sender, EventArgs<TestResult> e) {
+				if(!e.Item.WasSuccessful)
+					numberOfFailedTests++;
+			};
+			
+			testRunner.Run();
+			
+			Assert.AreEqual(1, numberOfFailedTests, "Expected failed TearDown to cause test to fail.");
+		}
 	}
 }
 

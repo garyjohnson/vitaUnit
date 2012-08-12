@@ -56,6 +56,21 @@ namespace VitaUnit
 			FireAllTestsCompleted(_uiResults);
 		}
 
+		private TestResult RunTearDownMethod(object testClassInstance, IMethod tearDownMethod, ITestMethod testMethod) {
+			if(tearDownMethod == null)
+				return null;
+			
+			TestResult testResult = null;
+			try {
+				tearDownMethod.Invoke(testClassInstance);
+			} catch (Exception ex) {
+				string className = testClassInstance.GetType().Name;
+				testResult = new TestResult(className, testMethod.Name, false, "TearDown failed: ", ex);
+			}
+			
+			return testResult;
+		}
+
 		private TestResults RunTests(Assembly[] testAssemblies, bool shouldRunUIThreadTests) {
 			var testResults = new TestResults();
 			foreach(Type testClass in _testMethodProvider.GetTestClasses(testAssemblies)) {
@@ -73,8 +88,9 @@ namespace VitaUnit
 					if(testResult == null) {
 						testResult = RunTestMethod(testClassInstance, testMethod);
 						
-						if(tearDownMethod != null)
-							tearDownMethod.Invoke(testClassInstance);
+						TestResult tearDownResult = RunTearDownMethod(testClassInstance, tearDownMethod, testMethod);
+						if(tearDownResult != null)
+							testResult = tearDownResult;
 					}
 						
 					string className = testClassInstance.GetType().Name;
