@@ -115,6 +115,27 @@ namespace VitaUnit
 			
 			testRunner.Run();
 		}
+		
+		[TestMethod]
+		public void ShouldRunTearDownEvenIfTestFails() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
+			testMethod.OnInvoke += (sender, e) => {
+				throw new Exception();
+			};
+			
+			testMethod2.OnInvoke += (sender, e) => {
+				throw new Exception();
+			};
+				
+			int timesTearDownCalled = 0;	
+			tearDownMethod.OnInvoke += (sender, e) => {
+				timesTearDownCalled++;
+			};
+			
+			testRunner.Run();
+			
+			Assert.AreEqual(2, timesTearDownCalled, "Expected TearDown method to be called for each failing test method.");
+		}
 	}
 }
 
