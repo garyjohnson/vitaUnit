@@ -70,11 +70,12 @@ namespace VitaUnit
 						continue;
 						
 					TestResult testResult = RunSetUp(testClassInstance, setUpMethod, testMethod);
-					if(testResult == null)
+					if(testResult == null) {
 						testResult = RunTestMethod(testClassInstance, testMethod);
 						
-					if(tearDownMethod != null)
-						tearDownMethod.Invoke(testClassInstance);
+						if(tearDownMethod != null)
+							tearDownMethod.Invoke(testClassInstance);
+					}
 						
 					string className = testClassInstance.GetType().Name;
 					testResults[className].Add(testResult);

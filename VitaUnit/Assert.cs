@@ -8,6 +8,10 @@ namespace VitaUnit
 			OnTestFailure("The test has failed due to an Assert.Fail().");
 		}
 		
+		public static void Fail(string failureMessage) {
+			OnTestFailure(failureMessage);
+		}
+		
 		public static void IsTrue(bool condition) {
 			if(!condition)
 				OnTestFailure("Expected the value to be true, but was false.");

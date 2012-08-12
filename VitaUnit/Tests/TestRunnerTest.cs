@@ -19,7 +19,7 @@ namespace VitaUnit
 			testMethodProvider = new MockTestMethodProvider();
 			uiTestMethod = new MockTestMethod() { IsUIThreadTest = true };
 			testMethod = new MockTestMethod();
-			testMethod2 = new MockTestMethod() ;
+			testMethod2 = new MockTestMethod();
 			setUpMethod = new MockMethod();
 			tearDownMethod = new MockMethod();
 			testMethodProvider.TestClasses = new List<Type> { typeof(MockTestClass) };
@@ -100,6 +100,20 @@ namespace VitaUnit
 			testRunner.Run();
 			
 			Assert.AreEqual(2, timesTearDownCalled, "Expected TearDown method to be called for each test method.");
+		}
+		
+		[TestMethod]
+		public void ShouldNotRunTearDownIfSetUpFails() {
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod, testMethod2 };
+			setUpMethod.OnInvoke += (sender, e) => {
+				throw new Exception(); 
+			};
+				
+			tearDownMethod.OnInvoke += (sender, e) => {
+				Assert.Fail("Expected TearDown to not be called if SetUp fails"); 
+			};
+			
+			testRunner.Run();
 		}
 	}
 }
