@@ -5,10 +5,8 @@ using Sce.PlayStation.Core.Environment;
 using Sce.PlayStation.Core.Input;
 using System.Reflection;
 
-namespace VitaUnit
-{
-	public static class VitaUnitRunner
-	{
+namespace VitaUnit {
+	public static class VitaUnitRunner {
 		private	static GraphicsContext _graphics;
 		private static readonly IocContainer _container = new IocContainer();
 		private static Assembly[] _testAssemblies;
@@ -26,6 +24,10 @@ namespace VitaUnit
 				Update();
 				Render();
 			}
+		}
+		
+		internal static GraphicsContext GraphicsContext {
+			get{ return _graphics;}
 		}
 		
 		public static Assembly[] TestAssemblies {
