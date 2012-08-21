@@ -6,3 +6,4 @@ Obj
 *.user
 *.*~
 *.userprefs
+*.pidb
