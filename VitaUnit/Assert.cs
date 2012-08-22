@@ -22,8 +22,12 @@ namespace VitaUnit {
 		}
 		
 		public static void IsNotNull(object targetValue) {
+			IsNotNull(targetValue, "Expected the value to be non-null, but was null instead.");
+		}
+		
+		public static void IsNotNull(object targetValue, string failureMessage) {
 			if(targetValue == null)
-				OnTestFailure("Expected the value to be non-null, but was null instead.");
+				OnTestFailure(failureMessage);
 		}
 		
 		public static void IsTrue(bool condition) {

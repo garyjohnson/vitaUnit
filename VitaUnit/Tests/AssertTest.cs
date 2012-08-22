@@ -129,6 +129,16 @@ namespace VitaUnit.Test {
 		}
 		
 		[TestMethod]
+		public void ShouldPassFailureMessageOnIsNotNullFailure() {
+			string expectedMessage = "This is my failure message.";
+			string actualMessage = GetFailureMessage(() => {
+				Assert.IsNotNull(null, expectedMessage);
+			});
+			
+			Assert.AreEqual(expectedMessage, actualMessage);
+		}
+		
+		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsNotNullFails() {
 			bool threwException = DidThrowVitaUnitException(() => {
 				object targetValue = null;
