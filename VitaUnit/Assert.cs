@@ -17,6 +17,11 @@ namespace VitaUnit
 				OnTestFailure(string.Format("Expected the value to be null, but was <{0}> instead.", targetValue));
 		}
 		
+		public static void IsNotNull(object targetValue) {
+			if(targetValue == null)
+				OnTestFailure("Expected the value to be non-null, but was null instead.");
+		}
+		
 		public static void IsTrue(bool condition) {
 			if(!condition)
 				OnTestFailure("Expected the value to be true, but was false.");
