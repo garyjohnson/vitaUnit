@@ -1,14 +1,13 @@
 using System;
 using System.Threading;
 
-namespace VitaUnit.Test
-{
+namespace VitaUnit.Test {
+
 	[TestClass]
-	public class AssertTest
-	{
+	public class AssertTest {
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsTrueFails() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				Assert.IsTrue(false);
 			});
 			
@@ -22,7 +21,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsFalseFails() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				Assert.IsFalse(true);
 			});
 			
@@ -36,7 +35,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualFailsForValueType() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				Assert.AreEqual(1, 2);
 			});
 			
@@ -50,7 +49,7 @@ namespace VitaUnit.Test
 				
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualFailsForReferenceType() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				object testObject1 = new object();
 				object testObject2 = new object();
 				Assert.AreEqual(testObject1, testObject2);
@@ -72,7 +71,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsFirstParamAsNull() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				object testObject = new object();
 				Assert.AreEqual(null, testObject);
 			});
@@ -82,7 +81,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertAreEqualGetsSecondParamAsNull() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				object testObject = new object();
 				Assert.AreEqual(testObject, null);
 			});
@@ -92,7 +91,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionOnAssertFail() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				Assert.Fail();
 			});
 			
@@ -101,23 +100,18 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldShowMessageInVitaUnitException() {
-			bool threwException = false;
-			string failureMessage = "This is my test";
-			
-			try {
+			string expectedMessage = "This is my test";
+			string actualMessage = GetFailureMessage(() => {
 				object testObject = new object();
-				Assert.AreEqual(testObject, null, failureMessage);
-			} catch (VitaUnitException ex) {
-				threwException = true;
-				Assert.AreEqual(failureMessage, ex.Message);
-			}
-			
-			Assert.IsTrue(threwException);
+				Assert.AreEqual(testObject, null, expectedMessage);
+			});
+		
+			Assert.AreEqual(expectedMessage, actualMessage);
 		}
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsNullFails() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				Assert.IsNull(new object());
 			});
 			
@@ -127,7 +121,7 @@ namespace VitaUnit.Test
 		[TestMethod]
 		public void ShouldPassFailureMessageOnIsNullFailure() {
 			string expectedMessage = "This is my failure message.";
-			string actualMessage = GetFailureMessage(()=>{
+			string actualMessage = GetFailureMessage(() => {
 				Assert.IsNull(new object(), expectedMessage);
 			});
 			
@@ -136,7 +130,7 @@ namespace VitaUnit.Test
 		
 		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsNotNullFails() {
-			bool threwException = DidThrowVitaUnitException(()=>{
+			bool threwException = DidThrowVitaUnitException(() => {
 				object targetValue = null;
 				Assert.IsNotNull(targetValue);
 			});
@@ -149,7 +143,7 @@ namespace VitaUnit.Test
 			
 			try {
 				action();
-			} catch (VitaUnitException) {
+			} catch(VitaUnitException) {
 				threwException = true;
 			}
 			
@@ -161,7 +155,7 @@ namespace VitaUnit.Test
 			
 			try {
 				action();
-			} catch (VitaUnitException ex) {
+			} catch(VitaUnitException ex) {
 				failureMessage = ex.Message;
 			}
 			
