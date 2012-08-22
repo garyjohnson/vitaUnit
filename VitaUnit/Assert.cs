@@ -1,11 +1,9 @@
 using System;
 
-namespace VitaUnit
-{
-	public static class Assert
-	{
+namespace VitaUnit {
+	public static class Assert {
 		public static void Fail() {
-			OnTestFailure("The test has failed due to an Assert.Fail().");
+			Fail("The test has failed due to an Assert.Fail().");
 		}
 		
 		public static void Fail(string failureMessage) {
@@ -23,8 +21,7 @@ namespace VitaUnit
 		}
 		
 		public static void IsTrue(bool condition) {
-			if(!condition)
-				OnTestFailure("Expected the value to be true, but was false.");
+			IsTrue(condition, "Expected the value to be true, but was false.");
 		}
 		
 		public static void IsTrue(bool condition, string failureMessage) {
@@ -33,8 +30,7 @@ namespace VitaUnit
 		}
 		
 		public static void IsFalse(bool condition) {
-			if(condition)
-				OnTestFailure("Expected the value to be false, but was true.");
+			IsFalse(condition, "Expected the value to be false, but was true.");
 		}
 		
 		public static void IsFalse(bool condition, string failureMessage) {
