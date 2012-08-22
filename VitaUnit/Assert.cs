@@ -1,7 +1,9 @@
 using System;
 
 namespace VitaUnit {
+
 	public static class Assert {
+	
 		public static void Fail() {
 			Fail("The test has failed due to an Assert.Fail().");
 		}
@@ -11,8 +13,12 @@ namespace VitaUnit {
 		}
 		
 		public static void IsNull(object targetValue) {
+			IsNull(targetValue, string.Format("Expected the value to be null, but was <{0}> instead.", targetValue));
+		}
+		
+		public static void IsNull(object targetValue, string failureMessage) {
 			if(targetValue != null)
-				OnTestFailure(string.Format("Expected the value to be null, but was <{0}> instead.", targetValue));
+				OnTestFailure(failureMessage);
 		}
 		
 		public static void IsNotNull(object targetValue) {

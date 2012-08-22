@@ -125,6 +125,16 @@ namespace VitaUnit.Test
 		}
 		
 		[TestMethod]
+		public void ShouldPassFailureMessageOnIsNullFailure() {
+			string expectedMessage = "This is my failure message.";
+			string actualMessage = GetFailureMessage(()=>{
+				Assert.IsNull(new object(), expectedMessage);
+			});
+			
+			Assert.AreEqual(expectedMessage, actualMessage);
+		}
+		
+		[TestMethod]
 		public void ShouldThrowVitaUnitExceptionWhenAssertIsNotNullFails() {
 			bool threwException = DidThrowVitaUnitException(()=>{
 				object targetValue = null;
@@ -144,6 +154,18 @@ namespace VitaUnit.Test
 			}
 			
 			return threwException;
+		}
+		
+		public string GetFailureMessage(Action action) {
+			string failureMessage = null;
+			
+			try {
+				action();
+			} catch (VitaUnitException ex) {
+				failureMessage = ex.Message;
+			}
+			
+			return failureMessage;
 		}
 	}
 }
