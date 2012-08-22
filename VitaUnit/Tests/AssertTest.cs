@@ -115,6 +115,15 @@ namespace VitaUnit.Test
 			Assert.IsTrue(threwException);
 		}
 		
+		[TestMethod]
+		public void ShouldThrowVitaUnitExceptionWhenAssertIsNullFails() {
+			bool threwException = DidThrowVitaUnitException(()=>{
+				Assert.IsNull(new object());
+			});
+			
+			Assert.IsTrue(threwException);
+		}
+		
 		public bool DidThrowVitaUnitException(Action action) {
 			bool threwException = false;
 			
