@@ -26,7 +26,7 @@ namespace VitaUnit {
 			}
 		}
 		
-		internal static GraphicsContext GraphicsContext {
+		public static GraphicsContext GraphicsContext {
 			get{ return _graphics;}
 		}
 		
