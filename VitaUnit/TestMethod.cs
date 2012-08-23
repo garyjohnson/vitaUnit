@@ -2,10 +2,9 @@ using System;
 using System.Reflection;
 using System.Linq;
 
-namespace VitaUnit
-{
-	internal class TestMethod : ITestMethod
-	{
+namespace VitaUnit {
+
+	internal class TestMethod : ITestMethod {
 		MethodInfo _methodInfo;
 		
 		public TestMethod(MethodInfo methodInfo) {
@@ -14,6 +13,10 @@ namespace VitaUnit
 		
 		public void Invoke(object instance) {
 			_methodInfo.Invoke(instance, null);
+		}
+		
+		public bool Ignore {
+			get{ return false;}
 		}
 		
 		public bool IsUIThreadTest {

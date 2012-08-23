@@ -6,6 +6,7 @@ using Sce.PlayStation.Core.Input;
 using System.Reflection;
 
 namespace VitaUnit {
+
 	public static class VitaUnitRunner {
 		private	static GraphicsContext _graphics;
 		private static readonly IocContainer _container = new IocContainer();

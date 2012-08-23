@@ -155,6 +155,21 @@ namespace VitaUnit
 			
 			Assert.AreEqual(1, numberOfFailedTests, "Expected failed TearDown to cause test to fail.");
 		}
+		
+		[TestMethod]
+		public void ShouldNotRunTestsMarkedIgnore() {
+			testMethod.Ignore = true;
+			testMethodProvider.TestMethods = new List<ITestMethod> { testMethod };
+			
+			bool wasTestRun = false;
+			testMethod.OnInvoke += (sender, e) => {
+				wasTestRun = true;
+			};
+			
+			testRunner.Run();
+			
+			Assert.IsFalse(wasTestRun, "Expected ignored test to not be run.");
+		}
 	}
 }
 

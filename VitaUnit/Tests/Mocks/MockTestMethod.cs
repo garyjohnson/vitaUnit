@@ -1,9 +1,8 @@
 using System;
 
-namespace VitaUnit
-{
-	public class MockTestMethod : ITestMethod
-	{
+namespace VitaUnit {
+
+	public class MockTestMethod : ITestMethod {
 		public bool WasInvokeCalled { get; private set; }
 
 		public void Invoke(object instance) {
@@ -17,8 +16,11 @@ namespace VitaUnit
 			get;
 			set;
 		}
+		
+		public bool Ignore { get; set; }
 
 		private string _name = string.Empty;
+
 		public string Name {
 			get { return _name; }
 			set { _name = value; }

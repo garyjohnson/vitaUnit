@@ -84,6 +84,9 @@ namespace VitaUnit
 					if(testMethod.IsUIThreadTest != shouldRunUIThreadTests) 
 						continue;
 						
+					if(testMethod.Ignore)
+						continue;
+						
 					TestResult testResult = RunSetUp(testClassInstance, setUpMethod, testMethod);
 					if(testResult == null) {
 						testResult = RunTestMethod(testClassInstance, testMethod);
