@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoDevelop.AddIn.VitaUnit", "VitaUnit.MonoDevelop.AddIn\MonoDevelop.AddIn.VitaUnit.csproj", "{B88284B8-9EF1-46F5-9389-68938D9964BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B88284B8-9EF1-46F5-9389-68938D9964BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88284B8-9EF1-46F5-9389-68938D9964BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88284B8-9EF1-46F5-9389-68938D9964BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88284B8-9EF1-46F5-9389-68938D9964BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = VitaUnit.MonoDevelop.AddIn\MonoDevelop.AddIn.VitaUnit.csproj
+	EndGlobalSection
+EndGlobal

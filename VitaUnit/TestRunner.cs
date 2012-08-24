@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Linq;
+using System.ServiceModel;
+using System.ServiceModel.Web;
+using MonoDevelop.AddIn.VitaUnit;
+using System.ServiceModel.Description;
 
-namespace VitaUnit
-{
-	internal class TestRunner : ITestRunner
-	{
+namespace VitaUnit {
+
+	internal class TestRunner : ITestRunner {
 		private TestResults _uiResults = new TestResults();
 		private ITestMethodProvider _testMethodProvider;
 		private ITaskRunner _taskRunner;
@@ -54,6 +57,21 @@ namespace VitaUnit
 			}
 			
 			FireAllTestsCompleted(_uiResults);
+			
+			
+			DoCrazyStuff();
+		}
+		
+		private void DoCrazyStuff() {
+			Uri baseAddress = new Uri ("http://localhost:1234");
+			WebHttpBinding binding = new WebHttpBinding ();
+			EndpointAddress epa = new EndpointAddress(baseAddress);
+
+			ChannelFactory<ITestStatusService> factory = 
+            new ChannelFactory<ITestStatusService>(binding, epa);
+            factory.Endpoint.Behaviors.Add(new WebHttpBehavior());
+			var patientSvc = factory.CreateChannel();
+			patientSvc.TestRunCompleted();
 		}
 
 		private TestResult RunTearDownMethod(object testClassInstance, IMethod tearDownMethod, ITestMethod testMethod) {
@@ -63,7 +81,7 @@ namespace VitaUnit
 			TestResult testResult = null;
 			try {
 				tearDownMethod.Invoke(testClassInstance);
-			} catch (Exception ex) {
+			} catch(Exception ex) {
 				string className = testClassInstance.GetType().Name;
 				testResult = new TestResult(className, testMethod.Name, false, "TearDown failed: ", ex);
 			}
@@ -108,7 +126,7 @@ namespace VitaUnit
 			object testClassInstance = null;
 			try {
 				testClassInstance = Activator.CreateInstance(type);
-			} catch (Exception) {
+			} catch(Exception) {
 			}
 			
 			return testClassInstance;
@@ -121,7 +139,7 @@ namespace VitaUnit
 			TestResult testResult = null;
 			try {
 				setUpMethod.Invoke(testClassInstance);
-			} catch (Exception ex) {
+			} catch(Exception ex) {
 				string className = testClassInstance.GetType().Name;
 				testResult = new TestResult(className, testMethod.Name, false, "SetUp failed: ", ex);
 			}
@@ -137,7 +155,7 @@ namespace VitaUnit
 			try {
 				testMethod.Invoke(testClassInstance);
 				testResult = new TestResult(className, methodName, true, "The test ran successfully.");
-			} catch (Exception ex) {
+			} catch(Exception ex) {
 				testResult = new TestResult(className, methodName, false, "The test failed: ", ex);
 			}
 			return testResult;

@@ -48,6 +48,8 @@
     <Reference Include="System.Core" />
     <Reference Include="Sce.PlayStation.Core" />
     <Reference Include="Sce.PlayStation.HighLevel.UI" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
   <ItemGroup>
@@ -94,6 +96,7 @@
     <Compile Include="SetUpAttribute.cs" />
     <Compile Include="Tests\Mocks\MockMethod.cs" />
     <Compile Include="TearDownAttribute.cs" />
+    <Compile Include="ITestStatusService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
