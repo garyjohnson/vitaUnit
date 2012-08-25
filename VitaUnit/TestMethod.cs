@@ -16,7 +16,9 @@ namespace VitaUnit {
 		}
 		
 		public bool Ignore {
-			get{ return false;}
+			get {
+				return _methodInfo.GetCustomAttributes(typeof(IgnoreAttribute), false).Any();
+			}
 		}
 		
 		public bool IsUIThreadTest {

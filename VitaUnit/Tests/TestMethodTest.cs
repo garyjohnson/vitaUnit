@@ -14,7 +14,18 @@ namespace VitaUnit {
 			Assert.IsFalse(testMethod.Ignore);
 		}
 		
+		[TestMethod]
+		public void ShouldIgnoreMethodMarkedIgnore() {
+			MethodInfo methodInfo = typeof(TestMethodTest).GetMethod("MethodMarkedIgnore");
+			var testMethod = new TestMethod(methodInfo);
+			
+			Assert.IsTrue(testMethod.Ignore);
+		}
+		
 		public void MethodNotMarkedIgnore(){}
+		
+		[Ignore]
+		public void MethodMarkedIgnore(){}
 	}
 }
 
