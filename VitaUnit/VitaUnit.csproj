@@ -94,6 +94,7 @@
     <Compile Include="SetUpAttribute.cs" />
     <Compile Include="Tests\Mocks\MockMethod.cs" />
     <Compile Include="TearDownAttribute.cs" />
+    <Compile Include="Tests\TestMethodTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
