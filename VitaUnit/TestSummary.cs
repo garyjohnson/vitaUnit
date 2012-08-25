@@ -30,8 +30,8 @@ namespace VitaUnit
 			
 			int totalTests = passedTests + failedTests;
 			
-			_passingTestLabel.Text = string.Format("{0}/{1} passed", passedTests, totalTests);
 			_failedTestLabel.Text = string.Format("{0}/{1} failed", failedTests, totalTests);
+			_passingTestLabel.Text = string.Format("{0}/{1} passed", passedTests, totalTests);
 		}
     }
 }
