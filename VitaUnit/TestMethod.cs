@@ -17,13 +17,13 @@ namespace VitaUnit {
 		
 		public bool Ignore {
 			get {
-				return _methodInfo.GetCustomAttributes(typeof(IgnoreAttribute), false).Any();
+				return HasAttribute<IgnoreAttribute>();
 			}
 		}
 		
 		public bool IsUIThreadTest {
 			get {
-				return _methodInfo.GetCustomAttributes(typeof(RunOnUIThreadAttribute), false).Any();
+				return HasAttribute<RunOnUIThreadAttribute>();
 			}
 		}
 		
@@ -31,6 +31,10 @@ namespace VitaUnit {
 			get {
 				return _methodInfo.Name;
 			}
+		}
+		
+		private bool HasAttribute<T>() where T : Attribute {
+			return _methodInfo.GetCustomAttributes(typeof(T), false).Any();
 		}
 	}
 }
